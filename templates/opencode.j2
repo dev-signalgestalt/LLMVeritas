@@ -1,0 +1,19 @@
+{# OpenCode Template #}
+{# SKILL.md format for OpenCode #}
+{%- extends "base.j2" -%}
+
+{%- block content -%}
+{{ super() }}
+
+## OpenCode-Specific Notes
+
+### Discovery
+OpenCode natively discovers skills from:
+- `~/.config/opencode/skills/`
+- `.opencode/skills/`
+- `.claude/skills/` (shared with Claude Code)
+- `.agents/skills/` (shared agent directory)
+
+### Configuration
+Optional `opencode.json` can provide additional metadata for the skill.
+{%- endblock -%}

@@ -1,0 +1,17 @@
+{# Codex Template #}
+{# SKILL.md format for Codex CLI #}
+{%- extends "base.j2" -%}
+
+{%- block content -%}
+{{ super() }}
+
+## Codex-Specific Notes
+
+### Installation Location
+Codex discovers skills from:
+- `~/.codex/skills/<name>/SKILL.md`
+- `.codex/skills/<name>/SKILL.md` (project-local)
+
+### AGENTS.md Router
+For file-based installations, an `AGENTS.md` router can map tasks to this skill via its skill index table.
+{%- endblock -%}

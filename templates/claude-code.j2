@@ -1,0 +1,12 @@
+{# Claude Code Template #}
+{# SKILL.md format for Claude Code #}
+{%- extends "base.j2" -%}
+
+{%- block metadata -%}
+{%- if claude_context %}
+context: {{ claude_context }}
+{%- endif %}
+{%- if claude_effort %}
+effort: {{ claude_effort }}
+{%- endif %}
+{%- endblock -%}

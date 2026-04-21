@@ -1,0 +1,19 @@
+{# Gemini CLI Template #}
+{# Extends base template - no special modifications needed #}
+{%- extends "base.j2" -%}
+
+{%- block content -%}
+{{ super() }}
+
+## Gemini CLI Specific Notes
+
+### Skill Activation
+Gemini CLI uses a 4-tier discovery system:
+1. Project: `.gemini/skills/` and `.agents/skills/`
+2. User: `~/.gemini/skills/` and `~/.agents/skills/`
+
+When activated, the skill's directory is added to the agent's allowed file paths.
+
+### Verification
+Run `gemini skills list | grep llmwatcher` to verify installation.
+{%- endblock -%}

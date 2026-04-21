@@ -1,0 +1,9 @@
+{# Cursor Template #}
+{# SKILL.md format for Cursor #}
+{%- extends "base.j2" -%}
+
+{%- block metadata -%}
+{%- if cursor_always_apply %}
+alwaysApply: {{ cursor_always_apply }}
+{%- endif %}
+{%- endblock -%}

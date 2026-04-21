@@ -1,0 +1,30 @@
+{# Pi Coding Agent Template #}
+{# Extends base with Pi-specific notes #}
+{%- extends "base.j2" -%}
+
+{%- block content -%}
+{{ super() }}
+
+## Pi-Specific Validation Rules
+
+### Critical: Directory Name Must Match
+The directory name MUST exactly match the `name` field in this SKILL.md:
+- **Directory:** `llmwatcher/`
+- **Name field:** `llmwatcher`
+- **Result:** ✓ Valid
+
+If these don't match, Pi will reject the skill.
+
+### Validation Behavior
+- Skills with **missing description** are NOT loaded
+- Name collisions (same name from different locations) warn and keep first
+- Unknown frontmatter fields are ignored
+- Pi validates against Agent Skills standard (warnings for violations, remains lenient)
+
+### Discovery Locations
+Pi loads from (in order):
+1. `~/.pi/agent/skills/llmwatcher/SKILL.md` ← Primary (used here)
+2. `~/.agents/skills/llmwatcher/SKILL.md` ← Alternative
+3. `.pi/skills/llmwatcher/SKILL.md` ← Project-specific
+4. `.agents/skills/llmwatcher/SKILL.md` ← Project alternative
+{%- endblock -%}
