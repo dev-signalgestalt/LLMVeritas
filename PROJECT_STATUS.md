@@ -1,4 +1,4 @@
-# LLMWatcher Project Status
+# LLMVeritas Project Status
 
 **Date:** 2026-04-21  
 **Status:** ✅ Core Complete → 🚧 Testing & Distribution Next
@@ -15,7 +15,7 @@
 | **Cross-Agent Architecture** | User research + Parallel search | Jinja2 templating, adapter pattern, symlink vs copy tradeoffs |
 | **Self-Monitoring Techniques** | User research + Parallel search | TruthfulQA, PRM800K, MCTS-Judge, Constitutional AI, Test-Time Compute |
 
-**Location:** `/home/yash/silverbullet/space/01-Projects/LLMWatcher/research/`
+**Location:** `/home/yash/silverbullet/space/01-Projects/LLMVeritas/research/`
 
 ---
 
@@ -49,7 +49,7 @@
 ### 3. Project Structure
 
 ```
-LLMWatcher/
+LLMVeritas/
 ├── README.md                    ✅ Comprehensive project overview
 ├── PROJECT_STATUS.md           ✅ This file
 ├── core/
@@ -140,7 +140,7 @@ Per-agent setup instructions in `adapters/`:
 
 | Decision | Rationale |
 |----------|-----------|
-| **LLMWatcher** name | Captures "watching/self-monitoring" concept |
+| **LLMVeritas** name | Captures "watching/self-monitoring" concept |
 | **YAML core spec** | Machine-readable, version-controllable, diffable |
 | **Jinja2 templating** | Industry standard, flexible, well-documented |
 | **Symlinks for dev** | Instant updates during development |
@@ -230,7 +230,7 @@ Per-agent setup instructions in `adapters/`:
 
 ## 📁 RESEARCH INDEX (SilverBullet Workspace)
 
-All research documents saved to: `/home/yash/silverbullet/space/01-Projects/LLMWatcher/research/`
+All research documents saved to: `/home/yash/silverbullet/space/01-Projects/LLMVeritas/research/`
 
 | Document | Source | Status |
 |----------|--------|--------|
@@ -305,4 +305,4 @@ Once deployed, measure:
 ---
 
 *Generated: 2026-04-21*  
-*LLMWatcher v0.1.0*
+*LLMVeritas v0.1.0*

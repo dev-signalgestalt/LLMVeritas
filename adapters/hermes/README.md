@@ -120,7 +120,7 @@ hermes skills list
 
 ---
 
-## LLMWatcher-Specific Adaptation
+## LLMVeritas-Specific Adaptation
 
 ### Required Fields
 ```yaml

@@ -1,10 +1,10 @@
-# LLMWatcher Core Cognitive System
+# LLMVeritas Core Cognitive System
 # Single Source of Truth for Anti-Hallucination & Verification
 # Version: 0.1.0
 # Based on: Truth Teller System, Cognitive Verifier Protocol, Research Synthesis
 
 metadata:
-  name: LLMWatcher Core
+  name: LLMVeritas Core
   version: 0.1.0
   description: Research-backed cognitive discipline system for LLM self-monitoring
   source_research:

@@ -1,4 +1,4 @@
-# LLMWatcher
+# LLMVeritas
 
 > **A portable cognitive discipline system for AI coding agents.**  
 > Cross-platform. Research-backed. Self-monitoring. Anti-hallucination.
@@ -7,7 +7,7 @@
 
 ---
 
-## The Problem: Why LLMWatcher Exists
+## The Problem: Why LLMVeritas Exists
 
 AI coding agents are powerful but fundamentally unreliable. They **hallucinate with confidence**, **justify errors instead of admitting them**, and **make claims they cannot support**. This isn't a minor inconvenience—it's a systemic failure that wastes hours of debugging and erodes trust.
 
@@ -36,13 +36,13 @@ AI agents lack **systematic self-monitoring**. They don't:
 - Respect user constraints absolutely
 - Question their own assumptions
 
-**LLMWatcher fixes this.**
+**LLMVeritas fixes this.**
 
 ---
 
-## What is LLMWatcher?
+## What is LLMVeritas?
 
-LLMWatcher is a **portable, research-backed cognitive discipline framework** that installs across 7 AI coding agents. It provides systematic anti-hallucination techniques, self-monitoring protocols, and verification workflows derived from peer-reviewed research and **real production failures**.
+LLMVeritas is a **portable, research-backed cognitive discipline framework** that installs across 7 AI coding agents. It provides systematic anti-hallucination techniques, self-monitoring protocols, and verification workflows derived from peer-reviewed research and **real production failures**.
 
 **Core Philosophy:**
 
@@ -54,7 +54,7 @@ The LLM must watch itself, question its own decisions, justify its reasoning wit
 
 ## Dual-Layer Architecture
 
-LLMWatcher uses a **dual-layer approach** for maximum coverage:
+LLMVeritas uses a **dual-layer approach** for maximum coverage:
 
 ### Layer 1: Core Instruction Files (Global)
 
@@ -306,7 +306,7 @@ User can force verification by saying:
 
 ## Research Sources
 
-All techniques in LLMWatcher are derived from peer-reviewed research and production systems:
+All techniques in LLMVeritas are derived from peer-reviewed research and production systems:
 
 | Technique | Source | Evidence | Citation |
 |-----------|--------|----------|----------|
@@ -327,7 +327,7 @@ See `research/` directory for full literature review (7 comprehensive reports).
 ## Project Structure
 
 ```
-LLMWatcher/
+LLMVeritas/
 ├── core/                          # Single source of truth
 │   └── cognitive-system.yml       # 20K+ lines, research-backed spec
 │       ├── 7-Layer Verification System

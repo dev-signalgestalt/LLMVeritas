@@ -8,7 +8,7 @@
 
 ## Overview
 
-OpenCode receives **dual-layer** LLMWatcher coverage:
+OpenCode receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `AGENTS.md` in `~/.config/opencode/` (always loaded)
 2. **On-Demand Skill:** `SKILL.md` in `~/.config/opencode/skills/` (loaded when needed)

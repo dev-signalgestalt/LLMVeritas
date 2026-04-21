@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-LLMWatcher Build Script
+LLMVeritas Build Script
 Generates platform-specific adapter files from core YAML spec using Jinja2 templates.
 
 Usage:
@@ -280,7 +280,7 @@ def print_installation_guide():
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Build LLMWatcher adapter files from core spec",
+        description="Build LLMVeritas adapter files from core spec",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -303,7 +303,7 @@ Examples:
     
     args = parser.parse_args()
     
-    print("🔧 LLMWatcher Build System")
+    print("🔧 LLMVeritas Build System")
     print("=" * 50)
     print()
     

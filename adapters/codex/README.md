@@ -8,7 +8,7 @@
 
 ## Overview
 
-Codex CLI receives **dual-layer** LLMWatcher coverage:
+Codex CLI receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `AGENTS.md` (always loaded)
 2. **On-Demand Skill:** `SKILL.md` in `~/.codex/skills/llmwatcher/` (loaded when needed)

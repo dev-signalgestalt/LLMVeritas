@@ -135,7 +135,7 @@ Pi loads skills from multiple sources simultaneously:
 
 ---
 
-## LLMWatcher-Specific Adaptation
+## LLMVeritas-Specific Adaptation
 
 ### Required Fields
 ```yaml
@@ -144,7 +144,7 @@ name: llmwatcher
 description: Cognitive discipline system for anti-hallucination. Use when agent makes claims without verification, shows overconfidence, or needs confidence calibration.
 ---
 
-# LLMWatcher
+# LLMVeritas
 
 ## When to Use
 - Agent makes unverified claims

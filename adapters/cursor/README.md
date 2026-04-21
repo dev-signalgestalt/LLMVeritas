@@ -8,7 +8,7 @@
 
 ## Overview
 
-Cursor receives **dual-layer** LLMWatcher coverage:
+Cursor receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Rules:** `.cursorrules` (always applied)
 2. **On-Demand Skill:** `SKILL.md` in `~/.cursor/skills/llmwatcher/` (loaded when needed)

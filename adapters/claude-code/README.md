@@ -8,7 +8,7 @@
 
 ## Overview
 
-Claude Code receives **dual-layer** LLMWatcher coverage:
+Claude Code receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `CLAUDE.md` (always loaded) + `/commands/` (introspect, verify)
 2. **On-Demand Skill:** `SKILL.md` in `~/.claude/skills/llmwatcher/` (loaded when needed)
@@ -60,7 +60,7 @@ Use these anytime to force verification:
 
 ### Automatic Triggers
 
-Claude Code applies LLMWatcher automatically when:
+Claude Code applies LLMVeritas automatically when:
 - User says "introspect", "verify", "check yourself"
 - Agent detects overconfidence
 - Error patterns detected

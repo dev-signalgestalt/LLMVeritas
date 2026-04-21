@@ -136,7 +136,7 @@ From [Beyond Prompt Engineering](https://medium.com/google-cloud/beyond-prompt-e
 
 ---
 
-## LLMWatcher-Specific Adaptation
+## LLMVeritas-Specific Adaptation
 
 ### Required Fields
 ```yaml
@@ -145,7 +145,7 @@ name: llmwatcher
 description: Cognitive discipline system for anti-hallucination. Use when agent shows signs of overconfidence, verification failure, or needs confidence calibration.
 ---
 
-# LLMWatcher
+# LLMVeritas
 
 ## When to Use
 - Agent makes claims without verification
