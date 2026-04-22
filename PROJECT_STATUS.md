@@ -28,8 +28,8 @@ The repository is currently a source-first distribution:
 Use this workflow from a fresh clone:
 
 ```bash
-git clone https://github.com/yourusername/llmwatcher.git ~/.llmwatcher
-cd ~/.llmwatcher
+git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
+cd ~/.llmveritas
 pip install -r requirements.txt
 python3 scripts/build.py
 ./scripts/install.sh all

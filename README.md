@@ -97,8 +97,8 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 ```bash
 # Clone from GitHub
-git clone https://github.com/yourusername/llmwatcher.git ~/.llmwatcher
-cd ~/.llmwatcher
+git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
+cd ~/.llmveritas
 
 # Install build dependencies
 pip install -r requirements.txt
@@ -406,8 +406,8 @@ python3 scripts/build.py --verbose
 
 ```bash
 # After GitHub push, clone on target system
-git clone https://github.com/yourusername/llmwatcher.git ~/.llmwatcher
-cd ~/.llmwatcher
+git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
+cd ~/.llmveritas
 
 # Build
 python3 scripts/build.py
