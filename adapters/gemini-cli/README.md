@@ -77,6 +77,18 @@ From [Gemini CLI Skills Discovery](https://geminicli.com/docs/cli/skills/) [^1]:
 
 ---
 
+## Setup
+
+```bash
+./setup.sh gemini-cli
+```
+
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
+
+For manual installation, see `scripts/install.sh`.
+
+---
+
 ## Installation Paths
 
 ```bash

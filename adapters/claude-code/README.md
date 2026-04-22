@@ -26,26 +26,15 @@ Claude Code receives **dual-layer** LLMVeritas coverage:
 
 ---
 
-## Installation
+## Setup
 
 ```bash
-./scripts/install.sh claude-code
+./setup.sh claude-code
 ```
 
-Or manually:
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
 
-```bash
-# Global instructions
-cp generated/claude-code/CLAUDE.md ~/.claude/
-
-# Commands
-mkdir -p ~/.claude/commands
-cp generated/claude-code/commands/*.md ~/.claude/commands/
-
-# Skill
-mkdir -p ~/.claude/skills/llmwatcher
-cp generated/claude-code/SKILL.md ~/.claude/skills/llmwatcher/
-```
+For manual installation, see `scripts/install.sh`.
 
 ---
 

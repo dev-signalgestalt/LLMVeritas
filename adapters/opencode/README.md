@@ -24,23 +24,15 @@ OpenCode receives **dual-layer** LLMVeritas coverage:
 
 ---
 
-## Installation
+## Setup
 
 ```bash
-./scripts/install.sh opencode
+./setup.sh opencode
 ```
 
-Or manually:
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
 
-```bash
-# Global instructions
-mkdir -p ~/.config/opencode
-cp generated/opencode/AGENTS.md ~/.config/opencode/
-
-# Skill
-mkdir -p ~/.config/opencode/skills
-cp generated/opencode/SKILL.md ~/.config/opencode/skills/llmwatcher.md
-```
+For manual installation, see `scripts/install.sh`.
 
 ---
 
