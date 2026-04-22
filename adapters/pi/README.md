@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Pi Coding Agent Documentation](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported (NOT the consumer chatbot pi.ai)
+> **Status:** ✅ Source-ready (NOT the consumer chatbot pi.ai)
 
 ---
 

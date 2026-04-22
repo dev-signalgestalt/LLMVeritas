@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Claude Code Skills Documentation](https://code.claude.com/docs/en/skills)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 

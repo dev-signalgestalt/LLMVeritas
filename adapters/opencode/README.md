@@ -2,7 +2,7 @@
 
 > **Verified Source:** [OpenCode Skills Documentation](https://opencode.ai/docs/skills)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 

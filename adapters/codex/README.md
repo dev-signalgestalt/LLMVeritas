@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Codex AGENTS.md Documentation](https://developers.openai.com/codex/guides/agents-md)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Gemini CLI Skills Documentation](https://geminicli.com/docs/cli/skills/)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 
