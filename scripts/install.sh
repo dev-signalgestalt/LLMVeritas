@@ -56,9 +56,9 @@ install_claude_code() {
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.claude/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.claude/skills/llmveritas/SKILL.md"
     fi
     
     # Install commands
@@ -92,9 +92,9 @@ install_cursor() {
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.cursor/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.cursor/skills/llmveritas/SKILL.md"
     fi
     
     echo "   ✨ Cursor installation complete!"
@@ -122,9 +122,9 @@ install_codex() {
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.codex/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.codex/skills/llmveritas/SKILL.md"
     fi
     
     echo "   ✨ Codex installation complete!"
@@ -152,8 +152,8 @@ install_opencode() {
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/skills" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher.md" || return 1
-        echo "   ✅ Installed: ~/.config/opencode/skills/llmwatcher.md"
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas.md" || return 1
+        echo "   ✅ Installed: ~/.config/opencode/skills/llmveritas.md"
     fi
     
     echo "   ✨ OpenCode installation complete!"
@@ -180,9 +180,9 @@ install_hermes() {
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.hermes/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.hermes/skills/llmveritas/SKILL.md"
     fi
     
     echo "   ✨ Hermes installation complete!"
@@ -208,20 +208,20 @@ install_gemini_cli() {
     
     # Install SKILL.md to .gemini/skills/
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.gemini/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.gemini/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/.gemini/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.gemini/skills/llmveritas/SKILL.md"
     fi
     
     # Also install to .agents/skills/ (alternative)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.agents/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.agents/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/.agents/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
     fi
     
     echo "   ✨ Gemini CLI installation complete!"
-    echo "      Run: gemini skills list | grep llmwatcher"
+    echo "      Run: gemini skills list | grep llmveritas"
 }
 
 install_pi() {
@@ -237,20 +237,20 @@ install_pi() {
     
     mkdir -p "$TARGET_DIR" || return 1
     
-    # Install SKILL.md to llmwatcher directory
+    # Install SKILL.md to llmveritas directory
     # IMPORTANT: Directory name MUST match 'name' field in SKILL.md
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.pi/agent/skills/llmwatcher/SKILL.md"
+        mkdir -p "$TARGET_DIR/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.pi/agent/skills/llmveritas/SKILL.md"
     fi
     
     # Also install to .agents/skills/ alternative location
     mkdir -p "$HOME/.agents/skills" || return 1
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$HOME/.agents/skills/llmwatcher" || return 1
-        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmwatcher/" || return 1
-        echo "   ✅ Installed: ~/.agents/skills/llmwatcher/SKILL.md"
+        mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
     fi
     
     echo "   ✨ Pi installation complete!"

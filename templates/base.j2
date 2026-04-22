@@ -2,7 +2,7 @@
 {# All agents implement agentskills.io open standard #}
 {# Usage: {% extends "base.j2" %} or direct include #}
 ---
-name: {{ name | default('llmwatcher') }}
+name: {{ name | default('llmveritas') }}
 description: {{ description | default('Cognitive discipline system for anti-hallucination and verification. Use when agent makes claims without verification, shows overconfidence, or needs confidence calibration.') }}
 {% if version -%}
 version: {{ version }}

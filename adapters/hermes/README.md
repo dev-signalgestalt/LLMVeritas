@@ -102,10 +102,10 @@ For manual installation, see `scripts/install.sh`.
 
 ```bash
 # Primary installation directory
-~/.hermes/skills/llmwatcher/SKILL.md
+~/.hermes/skills/llmveritas/SKILL.md
 
 # Category subdirectory (optional but recommended)
-~/.hermes/skills/productivity/llmwatcher/SKILL.md
+~/.hermes/skills/productivity/llmveritas/SKILL.md
 ```
 
 ---
@@ -137,7 +137,7 @@ hermes skills list
 ### Required Fields
 ```yaml
 ---
-name: llmwatcher
+name: llmveritas
 description: Cognitive discipline system for anti-hallucination and verification. Use when agent makes claims without verification, shows overconfidence, or needs confidence calibration.
 version: 1.0.0
 metadata:
@@ -150,10 +150,10 @@ metadata:
 ### File Placement
 ```bash
 # Option 1: Global (available in all projects)
-~/.hermes/skills/llmwatcher/SKILL.md
+~/.hermes/skills/llmveritas/SKILL.md
 
 # Option 2: Categorized
-~/.hermes/skills/core/llmwatcher/SKILL.md
+~/.hermes/skills/core/llmveritas/SKILL.md
 ```
 
 ---

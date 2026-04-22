@@ -1,4 +1,4 @@
-# LLMWatcher Build Dependencies
+# LLMVeritas Build Dependencies
 # Install with: pip install -r requirements.txt
 
 jinja2>=3.1.0

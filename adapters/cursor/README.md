@@ -11,7 +11,7 @@
 Cursor receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Rules:** `.cursorrules` (always applied)
-2. **On-Demand Skill:** `SKILL.md` in `~/.cursor/skills/llmwatcher/` (loaded when needed)
+2. **On-Demand Skill:** `SKILL.md` in `~/.cursor/skills/llmveritas/` (loaded when needed)
 
 ---
 
@@ -20,7 +20,7 @@ Cursor receives **dual-layer** LLMVeritas coverage:
 | File | Purpose | Installation |
 |------|---------|--------------|
 | `.cursorrules` | Global rules | `~/.cursor/.cursorrules` |
-| `SKILL.md` | On-demand skill | `~/.cursor/skills/llmwatcher/SKILL.md` |
+| `SKILL.md` | On-demand skill | `~/.cursor/skills/llmveritas/SKILL.md` |
 
 ---
 
@@ -54,7 +54,7 @@ Check installation:
 
 ```bash
 ls ~/.cursor/.cursorrules
-ls ~/.cursor/skills/llmwatcher/SKILL.md
+ls ~/.cursor/skills/llmveritas/SKILL.md
 ```
 
 ---
