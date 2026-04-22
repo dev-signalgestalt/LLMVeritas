@@ -8,7 +8,7 @@ Usage:
     python3 scripts/build.py --agent cursor  # Build specific adapter
 
 Requirements:
-    pip install jinja2 pyyaml
+    pip install -r requirements.txt
 """
 
 import os
