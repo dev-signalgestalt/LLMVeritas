@@ -4,6 +4,7 @@
 # Agents: claude-code, cursor, codex, opencode, hermes, gemini-cli, pi, all
 
 set -e
+set -o pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV_DIR="$SCRIPT_DIR/.venv"
@@ -43,8 +44,12 @@ fi
 
 # Step 2: Install dependencies
 echo "📥 Installing build dependencies..."
-"$VENV_DIR/bin/pip" install -r "$SCRIPT_DIR/requirements.txt" -q 2>&1 | tail -1
-echo "   ✅ Dependencies installed"
+if "$VENV_DIR/bin/pip" install -r "$SCRIPT_DIR/requirements.txt" -q 2>&1 | tail -1; then
+    echo "   ✅ Dependencies installed"
+else
+    echo "❌ Failed to install build dependencies."
+    exit 1
+fi
 
 # Step 3: Build adapter files
 echo "🏗️  Building adapter files..."
