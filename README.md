@@ -17,6 +17,18 @@ Replace `[agent]` with: `claude-code`, `cursor`, `codex`, `opencode`, `hermes`, 
 
 The agent will read this README and run `./setup.sh <agent>`, which handles everything: venv, dependencies, build, install. No extra steps.
 
+## Updates
+
+After the first install, pull and reinstall updates from the same repo clone:
+
+```bash
+./update.sh            # updates the agents already installed on this machine
+./update.sh codex      # updates one agent explicitly
+./update.sh all        # refreshes every supported agent target
+```
+
+`update.sh` runs `git pull --ff-only`, refreshes the local build, and reinstalls the generated files. Before any installed file is replaced, LLMVeritas saves a timestamped backup under `~/.llmveritas/backups/`.
+
 <details>
 <summary>Manual setup (if you prefer the terminal)</summary>
 
@@ -358,7 +370,10 @@ LLMVeritas/
 │
 ├── scripts/                       # Installation & build
 │   ├── build.py                   # Jinja2 template compiler
-│   └── install.sh                 # Universal installer (7 agents)
+│   ├── install.sh                 # Universal installer (7 agents)
+│   └── install_state.py           # Install-state + backup helper
+│
+├── update.sh                      # Pull, rebuild, and reinstall updates
 │
 └── research/                        # Literature review (not yet in repo)
     ├── 01_config_sync_and_portability.md
@@ -396,6 +411,7 @@ python3 scripts/build.py --verbose
 git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
 cd ~/.llmveritas
 ./setup.sh all
+./update.sh
 
 # Verify installation
 ls ~/.claude/CLAUDE.md
@@ -412,7 +428,8 @@ ls ~/GEMINI.md
 2. Edit templates in `templates/` if needed
 3. Run `python3 scripts/build.py` to regenerate
 4. Test with `./scripts/install.sh <agent>` on clean system
-5. Submit PR with research citations — speculation without evidence doesn't belong here
+5. Test `./update.sh <agent>` after changing generated outputs or install logic
+6. Submit PR with research citations — speculation without evidence doesn't belong here
 
 ---
 
@@ -426,6 +443,7 @@ ls ~/GEMINI.md
 | **SKILL.md Standard** | agentskills.io compatibility | Limits Pi to single-layer |
 | **Research-Backed Only** | Evidence-based techniques | Excludes trendy but unverified methods |
 | **Source-first Distribution** | You see every file before it installs | Requires a local build before install |
+| **Repo-based Updates** | Same clone handles install and refresh | Users keep the local checkout around |
 
 ---
 

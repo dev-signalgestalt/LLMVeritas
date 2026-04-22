@@ -72,3 +72,6 @@ echo
 echo "To rebuild after editing core/ or templates/:"
 echo "  .venv/bin/python3 scripts/build.py"
 echo "  ./scripts/install.sh $AGENT"
+echo
+echo "To pull future changes and reinstall:"
+echo "  ./update.sh $AGENT"
