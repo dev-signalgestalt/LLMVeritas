@@ -86,7 +86,19 @@ How to confirm it worked.
 
 ---
 
-## Installation Path
+## Setup
+
+```bash
+./setup.sh hermes
+```
+
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
+
+For manual installation, see `scripts/install.sh`.
+
+---
+
+## Installation Paths
 
 ```bash
 # Primary installation directory

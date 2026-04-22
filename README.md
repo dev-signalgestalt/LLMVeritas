@@ -7,6 +7,25 @@
 
 ---
 
+## Setup
+
+```bash
+git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
+cd ~/.llmveritas
+./setup.sh <agent>
+```
+
+Replace `<agent>` with one of: `claude-code`, `cursor`, `codex`, `opencode`, `hermes`, `gemini-cli`, `pi`, `all`
+
+`setup.sh` handles everything: venv, dependencies, build, install. One command, no extra steps.
+
+If you're already in the cloned directory, just run:
+```bash
+./setup.sh claude-code    # or whichever agent you're using
+```
+
+---
+
 ## Why This Exists
 
 AI coding agents are powerful. They're also fundamentally unreliable. They **hallucinate with confidence**, **justify errors instead of admitting them**, and **make claims they can't back up**. That's not a minor inconvenience — it's a pattern that wastes hours and kills trust.
@@ -91,64 +110,17 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 ---
 
-## Quick Start
-
-### One-Command Setup
-
-```bash
-git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
-cd ~/.llmveritas
-./setup.sh claude-code     # or: cursor, codex, opencode, hermes, gemini-cli, pi, all
-```
-
-That's it. `setup.sh` creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
-
-### Manual Install
-
-If you prefer to run each step yourself:
-
-```bash
-git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
-cd ~/.llmveritas
-
-# Install build dependencies (or use: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt)
-pip install -r requirements.txt
-
-# Build adapter files
-python3 scripts/build.py
-
-# Install for a specific agent
-./scripts/install.sh claude-code
-```
-
-Note: `generated/` doesn't exist in a fresh clone — run `build.py` first.
-
-### Supported Agent Names
-
-| Name | Agent |
-|------|-------|
-| `claude-code` | Claude Code |
-| `cursor` | Cursor |
-| `codex` | Codex CLI |
-| `opencode` | OpenCode |
-| `hermes` | Hermes Agent |
-| `gemini-cli` | Gemini CLI |
-| `pi` | Pi Coding Agent |
-| `all` | All 7 agents |
-
----
-
 ## Supported Agents
 
-| Agent | Status | Install | Coverage | Verified |
-|-------|--------|---------|----------|----------|
-| **Claude Code** | ✅ Source-ready | `./scripts/install.sh claude-code` | Dual: CLAUDE.md + SKILL.md + commands/ | [code.claude.com](https://code.claude.com/docs/en/skills) |
-| **Cursor** | ✅ Source-ready | `./scripts/install.sh cursor` | Dual: .cursorrules + SKILL.md | [cursor.com](https://cursor.com/docs/skills) |
-| **Codex** | ✅ Source-ready | `./scripts/install.sh codex` | Dual: AGENTS.md + SKILL.md | [openai.com](https://developers.openai.com/codex/guides/agents-md) |
-| **OpenCode** | ✅ Source-ready | `./scripts/install.sh opencode` | Dual: AGENTS.md + SKILL.md | [opencode.ai](https://opencode.ai/docs/skills) |
-| **Hermes** | ✅ Source-ready | `./scripts/install.sh hermes` | Dual: SOUL.md + SKILL.md | [nousresearch.com](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
-| **Gemini CLI** | ✅ Source-ready | `./scripts/install.sh gemini-cli` | Dual: GEMINI.md + SKILL.md | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
-| **Pi** | ✅ Source-ready | `./scripts/install.sh pi` | Single: SKILL.md only | [github.com/badlogic/pi-mono](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md) |
+| Agent | Status | Setup | Coverage | Verified |
+|-------|--------|-------|----------|----------|
+| **Claude Code** | ✅ Source-ready | `./setup.sh claude-code` | Dual: CLAUDE.md + SKILL.md + commands/ | [code.claude.com](https://code.claude.com/docs/en/skills) |
+| **Cursor** | ✅ Source-ready | `./setup.sh cursor` | Dual: .cursorrules + SKILL.md | [cursor.com](https://cursor.com/docs/skills) |
+| **Codex** | ✅ Source-ready | `./setup.sh codex` | Dual: AGENTS.md + SKILL.md | [openai.com](https://developers.openai.com/codex/guides/agents-md) |
+| **OpenCode** | ✅ Source-ready | `./setup.sh opencode` | Dual: AGENTS.md + SKILL.md | [opencode.ai](https://opencode.ai/docs/skills) |
+| **Hermes** | ✅ Source-ready | `./setup.sh hermes` | Dual: SOUL.md + SKILL.md | [nousresearch.com](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
+| **Gemini CLI** | ✅ Source-ready | `./setup.sh gemini-cli` | Dual: GEMINI.md + SKILL.md | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
+| **Pi** | ✅ Source-ready | `./setup.sh pi` | Single: SKILL.md only | [github.com/badlogic/pi-mono](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md) |
 
 All 6 agents (except Pi) implement full dual-layer coverage. All 7 implement [agentskills.io](https://agentskills.io/specification) open standard for SKILL.md.
 
@@ -417,15 +389,9 @@ python3 scripts/build.py --verbose
 ### Testing on Multiple Systems
 
 ```bash
-# After GitHub push, clone on target system
 git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
 cd ~/.llmveritas
-
-# Build
-python3 scripts/build.py
-
-# Install all 7 agents
-./scripts/install.sh all
+./setup.sh all
 
 # Verify installation
 ls ~/.claude/CLAUDE.md

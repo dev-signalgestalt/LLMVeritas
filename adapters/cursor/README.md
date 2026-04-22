@@ -24,22 +24,15 @@ Cursor receives **dual-layer** LLMVeritas coverage:
 
 ---
 
-## Installation
+## Setup
 
 ```bash
-./scripts/install.sh cursor
+./setup.sh cursor
 ```
 
-Or manually:
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
 
-```bash
-# Global rules
-cp generated/cursor/.cursorrules ~/.cursor/
-
-# Skill
-mkdir -p ~/.cursor/skills/llmwatcher
-cp generated/cursor/SKILL.md ~/.cursor/skills/llmwatcher/
-```
+For manual installation, see `scripts/install.sh`.
 
 ---
 

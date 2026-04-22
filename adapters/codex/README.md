@@ -24,22 +24,15 @@ Codex CLI receives **dual-layer** LLMVeritas coverage:
 
 ---
 
-## Installation
+## Setup
 
 ```bash
-./scripts/install.sh codex
+./setup.sh codex
 ```
 
-Or manually:
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
 
-```bash
-# Global instructions
-cp generated/codex/AGENTS.md ~/.codex/
-
-# Skill
-mkdir -p ~/.codex/skills/llmwatcher
-cp generated/codex/SKILL.md ~/.codex/skills/llmwatcher/
-```
+For manual installation, see `scripts/install.sh`.
 
 ---
 

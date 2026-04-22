@@ -94,6 +94,16 @@ From [Pi Skills Documentation](https://github.com/badlogic/pi-mono/tree/main/pac
 
 ---
 
+## Setup
+
+```bash
+./setup.sh pi
+```
+
+This creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
+
+---
+
 ## Installation Path
 
 ```bash
