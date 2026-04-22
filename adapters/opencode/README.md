@@ -20,7 +20,7 @@ OpenCode receives **dual-layer** LLMVeritas coverage:
 | File | Purpose | Installation |
 |------|---------|--------------|
 | `AGENTS.md` | Global instructions | `~/.config/opencode/AGENTS.md` |
-| `SKILL.md` | On-demand skill | `~/.config/opencode/skills/llmwatcher.md` |
+| `SKILL.md` | On-demand skill | `~/.config/opencode/skills/llmveritas.md` |
 
 ---
 
@@ -54,7 +54,7 @@ Check installation:
 
 ```bash
 ls ~/.config/opencode/AGENTS.md
-ls ~/.config/opencode/skills/llmwatcher.md
+ls ~/.config/opencode/skills/llmveritas.md
 ```
 
 ---

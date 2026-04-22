@@ -108,10 +108,10 @@ This creates a venv, installs dependencies, builds adapter files, and installs t
 
 ```bash
 # Primary installation directory
-~/.pi/agent/skills/llmwatcher/SKILL.md
+~/.pi/agent/skills/llmveritas/SKILL.md
 
 # Alternative (also valid)
-~/.agents/skills/llmwatcher/SKILL.md
+~/.agents/skills/llmveritas/SKILL.md
 ```
 
 ---
@@ -150,7 +150,7 @@ Pi loads skills from multiple sources simultaneously:
 ### Required Fields
 ```yaml
 ---
-name: llmwatcher
+name: llmveritas
 description: Cognitive discipline system for anti-hallucination. Use when agent makes claims without verification, shows overconfidence, or needs confidence calibration.
 ---
 
@@ -178,15 +178,15 @@ Check that all output claims have [CONFIRMED], [LIKELY], [UNCERTAIN], [STALE], [
 ### File Placement
 ```bash
 # Create directory (MUST match 'name' field)
-mkdir -p ~/.pi/agent/skills/llmwatcher
+mkdir -p ~/.pi/agent/skills/llmveritas
 
 # Copy skill
-cp SKILL.md ~/.pi/agent/skills/llmwatcher/
+cp SKILL.md ~/.pi/agent/skills/llmveritas/
 
 # Verify directory matches name
-ls ~/.pi/agent/skills/llmwatcher/
+ls ~/.pi/agent/skills/llmveritas/
 # Should show: SKILL.md
-# Directory name 'llmwatcher' == name field 'llmwatcher' ✓
+# Directory name 'llmveritas' == name field 'llmveritas' ✓
 ```
 
 ---

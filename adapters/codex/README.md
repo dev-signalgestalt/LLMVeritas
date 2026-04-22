@@ -11,7 +11,7 @@
 Codex CLI receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `AGENTS.md` (always loaded)
-2. **On-Demand Skill:** `SKILL.md` in `~/.codex/skills/llmwatcher/` (loaded when needed)
+2. **On-Demand Skill:** `SKILL.md` in `~/.codex/skills/llmveritas/` (loaded when needed)
 
 ---
 
@@ -20,7 +20,7 @@ Codex CLI receives **dual-layer** LLMVeritas coverage:
 | File | Purpose | Installation |
 |------|---------|--------------|
 | `AGENTS.md` | Global instructions | `~/.codex/AGENTS.md` |
-| `SKILL.md` | On-demand skill | `~/.codex/skills/llmwatcher/SKILL.md` |
+| `SKILL.md` | On-demand skill | `~/.codex/skills/llmveritas/SKILL.md` |
 
 ---
 
@@ -56,7 +56,7 @@ Check installation:
 
 ```bash
 ls ~/.codex/AGENTS.md
-ls ~/.codex/skills/llmwatcher/SKILL.md
+ls ~/.codex/skills/llmveritas/SKILL.md
 ```
 
 ---

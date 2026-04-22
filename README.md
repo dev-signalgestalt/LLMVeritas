@@ -100,13 +100,13 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 | Agent | Skill Location |
 |-------|----------------|
-| **Claude Code** | `~/.claude/skills/llmwatcher/SKILL.md` |
-| **Cursor** | `~/.cursor/skills/llmwatcher/SKILL.md` |
-| **Codex** | `~/.codex/skills/llmwatcher/SKILL.md` |
-| **OpenCode** | `~/.config/opencode/skills/llmwatcher.md` |
-| **Hermes** | `~/.hermes/skills/llmwatcher/SKILL.md` |
-| **Gemini CLI** | `~/.gemini/skills/llmwatcher/SKILL.md` |
-| **Pi** | `~/.pi/agent/skills/llmwatcher/SKILL.md` |
+| **Claude Code** | `~/.claude/skills/llmveritas/SKILL.md` |
+| **Cursor** | `~/.cursor/skills/llmveritas/SKILL.md` |
+| **Codex** | `~/.codex/skills/llmveritas/SKILL.md` |
+| **OpenCode** | `~/.config/opencode/skills/llmveritas.md` |
+| **Hermes** | `~/.hermes/skills/llmveritas/SKILL.md` |
+| **Gemini CLI** | `~/.gemini/skills/llmveritas/SKILL.md` |
+| **Pi** | `~/.pi/agent/skills/llmveritas/SKILL.md` |
 
 **Note:** Pi (coding agent) supports only SKILL.md - no global instruction file. This is a limitation of the Pi filesystem-based skill system.
 

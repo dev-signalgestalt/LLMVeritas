@@ -11,7 +11,7 @@
 Claude Code receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `CLAUDE.md` (always loaded) + `/commands/` (introspect, verify)
-2. **On-Demand Skill:** `SKILL.md` in `~/.claude/skills/llmwatcher/` (loaded when needed)
+2. **On-Demand Skill:** `SKILL.md` in `~/.claude/skills/llmveritas/` (loaded when needed)
 
 ---
 
@@ -20,7 +20,7 @@ Claude Code receives **dual-layer** LLMVeritas coverage:
 | File | Purpose | Installation |
 |------|---------|--------------|
 | `CLAUDE.md` | Global instructions | `~/.claude/CLAUDE.md` |
-| `SKILL.md` | On-demand skill | `~/.claude/skills/llmwatcher/SKILL.md` |
+| `SKILL.md` | On-demand skill | `~/.claude/skills/llmveritas/SKILL.md` |
 | `commands/introspect.md` | /introspect command | `~/.claude/commands/introspect.md` |
 | `commands/verify.md` | /verify command | `~/.claude/commands/verify.md` |
 
@@ -63,7 +63,7 @@ Check installation:
 ```bash
 ls ~/.claude/CLAUDE.md
 ls ~/.claude/commands/introspect.md
-ls ~/.claude/skills/llmwatcher/SKILL.md
+ls ~/.claude/skills/llmveritas/SKILL.md
 ```
 
 ---

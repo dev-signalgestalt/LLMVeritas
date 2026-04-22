@@ -34,13 +34,13 @@ AGENTS = ["claude-code", "cursor", "codex", "opencode", "hermes", "gemini-cli", 
 
 # Agent skill directories (installation targets)
 AGENT_DIRS = {
-    "claude-code": "~/.claude/skills/llmwatcher",
-    "cursor": "~/.cursor/skills/llmwatcher",
-    "codex": "~/.codex/skills/llmwatcher",
+    "claude-code": "~/.claude/skills/llmveritas",
+    "cursor": "~/.cursor/skills/llmveritas",
+    "codex": "~/.codex/skills/llmveritas",
     "opencode": "~/.config/opencode/skills",
-    "hermes": "~/.hermes/skills/llmwatcher",
-    "gemini-cli": "~/.gemini/skills/llmwatcher",
-    "pi": "~/.pi/agent/skills/llmwatcher",
+    "hermes": "~/.hermes/skills/llmveritas",
+    "gemini-cli": "~/.gemini/skills/llmveritas",
+    "pi": "~/.pi/agent/skills/llmveritas",
 }
 
 
@@ -94,7 +94,7 @@ def build_agent(agent, spec, env, verbose=False):
     # Render SKILL.md
     context = {
         "agent": agent,
-        "name": "llmwatcher",
+        "name": "llmveritas",
         "description": "Cognitive discipline system for anti-hallucination and verification. Use when agent makes claims without verification, shows overconfidence, or needs confidence calibration.",
         "version": spec.get("metadata", {}).get("version", "1.0.0"),
         "spec": spec,
@@ -166,7 +166,7 @@ def build_core_files(agent, spec, env, output_dir, verbose=False):
             
             context = {
                 "agent": agent,
-                "name": "llmwatcher",
+                "name": "llmveritas",
                 "version": spec.get("metadata", {}).get("version", "1.0.0"),
                 "spec": spec,
             }
@@ -268,13 +268,13 @@ def print_installation_guide():
     print("  gemini-cli   → ~/GEMINI.md")
     print()
     print("Skill Files (On-Demand):")
-    print("  claude-code  → ~/.claude/skills/llmwatcher/SKILL.md")
-    print("  cursor       → ~/.cursor/skills/llmwatcher/SKILL.md")
-    print("  codex        → ~/.codex/skills/llmwatcher/SKILL.md")
-    print("  opencode     → ~/.config/opencode/skills/llmwatcher.md")
-    print("  hermes       → ~/.hermes/skills/llmwatcher/SKILL.md")
-    print("  gemini-cli   → ~/.gemini/skills/llmwatcher/SKILL.md")
-    print("  pi           → ~/.pi/agent/skills/llmwatcher/SKILL.md")
+    print("  claude-code  → ~/.claude/skills/llmveritas/SKILL.md")
+    print("  cursor       → ~/.cursor/skills/llmveritas/SKILL.md")
+    print("  codex        → ~/.codex/skills/llmveritas/SKILL.md")
+    print("  opencode     → ~/.config/opencode/skills/llmveritas.md")
+    print("  hermes       → ~/.hermes/skills/llmveritas/SKILL.md")
+    print("  gemini-cli   → ~/.gemini/skills/llmveritas/SKILL.md")
+    print("  pi           → ~/.pi/agent/skills/llmveritas/SKILL.md")
 
 
 def main():

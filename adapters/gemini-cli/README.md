@@ -93,13 +93,13 @@ For manual installation, see `scripts/install.sh`.
 
 ```bash
 # User-scoped (available in all projects)
-~/.gemini/skills/llmwatcher/SKILL.md
+~/.gemini/skills/llmveritas/SKILL.md
 
 # Or shared agent directory
-~/.agents/skills/llmwatcher/SKILL.md
+~/.agents/skills/llmveritas/SKILL.md
 
 # Project-scoped (specific to project)
-./.gemini/skills/llmwatcher/SKILL.md
+./.gemini/skills/llmveritas/SKILL.md
 ```
 
 ---
@@ -153,7 +153,7 @@ From [Beyond Prompt Engineering](https://medium.com/google-cloud/beyond-prompt-e
 ### Required Fields
 ```yaml
 ---
-name: llmwatcher
+name: llmveritas
 description: Cognitive discipline system for anti-hallucination. Use when agent shows signs of overconfidence, verification failure, or needs confidence calibration.
 ---
 
@@ -176,11 +176,11 @@ Confirm all claims have confidence labels before proceeding.
 ### File Placement
 ```bash
 # Global installation
-mkdir -p ~/.gemini/skills/llmwatcher
-cp SKILL.md ~/.gemini/skills/llmwatcher/
+mkdir -p ~/.gemini/skills/llmveritas
+cp SKILL.md ~/.gemini/skills/llmveritas/
 
 # Verify installation
-gemini skills list | grep llmwatcher
+gemini skills list | grep llmveritas
 ```
 
 ---
