@@ -9,20 +9,24 @@
 
 ## Setup
 
+1. Clone this repo
+2. Open your coding agent inside the cloned directory
+3. Tell it: **"setup LLMVeritas for [agent]"**
+
+Replace `[agent]` with: `claude-code`, `cursor`, `codex`, `opencode`, `hermes`, `gemini-cli`, `pi`, or `all`
+
+The agent will read this README and run `./setup.sh <agent>`, which handles everything: venv, dependencies, build, install. No extra steps.
+
+<details>
+<summary>Manual setup (if you prefer the terminal)</summary>
+
 ```bash
 git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
 cd ~/.llmveritas
-./setup.sh <agent>
-```
-
-Replace `<agent>` with one of: `claude-code`, `cursor`, `codex`, `opencode`, `hermes`, `gemini-cli`, `pi`, `all`
-
-`setup.sh` handles everything: venv, dependencies, build, install. One command, no extra steps.
-
-If you're already in the cloned directory, just run:
-```bash
 ./setup.sh claude-code    # or whichever agent you're using
 ```
+
+</details>
 
 ---
 
