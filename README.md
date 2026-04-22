@@ -1,15 +1,15 @@
 # LLMVeritas
 
-> **A portable cognitive discipline system for AI coding agents.**  
-> Cross-platform. Research-backed. Self-monitoring. Anti-hallucination.
+> **Stop your AI agent from lying to itself — and to you.**  
+> Works across 7 agents. Built from real failures, not just theory.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
 
-## The Problem: Why LLMVeritas Exists
+## Why This Exists
 
-AI coding agents are powerful but fundamentally unreliable. They **hallucinate with confidence**, **justify errors instead of admitting them**, and **make claims they cannot support**. This isn't a minor inconvenience—it's a systemic failure that wastes hours of debugging and erodes trust.
+AI coding agents are powerful. They're also fundamentally unreliable. They **hallucinate with confidence**, **justify errors instead of admitting them**, and **make claims they can't back up**. That's not a minor inconvenience — it's a pattern that wastes hours and kills trust.
 
 ### Real Frustrations (That You've Experienced)
 
@@ -26,37 +26,38 @@ AI coding agents are powerful but fundamentally unreliable. They **hallucinate w
 | **Confidence without evidence** | "I'm confident this will work" with zero verification | Ego-based confidence vs evidence-based. Wrong more often than right. |
 | **Explaining instead of fixing** | "This error happened because..." continues for paragraphs | Time spent explaining > time spent fixing. Just admit and fix. |
 
-### The Root Cause
+### What's Actually Going Wrong
 
-AI agents lack **systematic self-monitoring**. They don't:
-- Track their own confidence levels
-- Verify claims before stating them  
-- Check if data is stale
-- Admit errors immediately
-- Respect user constraints absolutely
-- Question their own assumptions
+AI agents have no real self-awareness about their own confidence. They don't:
+- Track when they're guessing vs. when they actually know
+- Check if their data is stale before presenting it
+- Admit mistakes — they reframe them
+- Respect scope ("only fix X" quietly becomes "fix X, Y, Z, and refactor")
+- Question their own assumptions before acting on them
 
 **LLMVeritas fixes this.**
 
 ---
 
-## What is LLMVeritas?
+## What It Actually Does
 
-LLMVeritas is a **portable, research-backed cognitive discipline framework** that installs across 7 AI coding agents. It provides systematic anti-hallucination techniques, self-monitoring protocols, and verification workflows derived from peer-reviewed research and **real production failures**.
+LLMVeritas installs cognitive discipline rules across your AI coding agents. Think of it as a standing instruction set: verify before claiming, label your confidence, admit when you're wrong, don't expand scope without permission.
 
-**Core Philosophy:**
+The techniques come from peer-reviewed research (Wang et al., Anthropic, OpenAI PRM800K, MCTS-Judge) and from real session failures — the kind that cost you a morning.
+
+**The core idea:**
 
 > *"I pursue truth over comfort, wisdom over cleverness, and growth over defense."*
 
-The LLM must watch itself, question its own decisions, justify its reasoning with evidence, and eliminate hallucinations through systematic verification.
+The agent watches itself, questions its reasoning, and earns confidence through evidence — not vibes.
 
 ---
 
-## Dual-Layer Architecture
+## How It's Built
 
-LLMVeritas uses a **dual-layer approach** for maximum coverage:
+LLMVeritas uses a two-layer approach so there's no gap in coverage:
 
-### Layer 1: Core Instruction Files (Global)
+### Layer 1: Core Instruction Files (Always-On)
 
 Always-loaded global instructions that define agent identity:
 
@@ -86,24 +87,21 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 **Note:** Pi (coding agent) supports only SKILL.md - no global instruction file. This is a limitation of the Pi filesystem-based skill system.
 
-**Benefit:** Core files provide always-on identity. Skills provide detailed protocols when needed. Both work together for comprehensive coverage.
+**Why two layers?** Core files give you the baseline always. Skills give you the full protocol when a task gets complicated. Together they cover what either one alone misses.
 
 ---
 
 ## Quick Start
 
-### One-Command Install (All Agents)
-
-```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/yourusername/llmwatcher/main/scripts/install.sh)"
-```
-
-### GitHub CLI Install (Your Preferred Method)
+### Source Install
 
 ```bash
 # Clone from GitHub
 git clone https://github.com/yourusername/llmwatcher.git ~/.llmwatcher
 cd ~/.llmwatcher
+
+# Install build dependencies
+pip install -r requirements.txt
 
 # Build adapter files
 python3 scripts/build.py
@@ -111,6 +109,8 @@ python3 scripts/build.py
 # Install for all 7 agents
 ./scripts/install.sh all
 ```
+
+Note: `generated/` doesn't exist in a fresh clone — run `build.py` first.
 
 ### Per-Agent Install
 
@@ -130,23 +130,23 @@ python3 scripts/build.py
 
 | Agent | Status | Install | Coverage | Verified |
 |-------|--------|---------|----------|----------|
-| **Claude Code** | ✅ Ready | `./install.sh claude-code` | Dual: CLAUDE.md + SKILL.md + commands/ | [code.claude.com](https://code.claude.com/docs/en/skills) |
-| **Cursor** | ✅ Ready | `./install.sh cursor` | Dual: .cursorrules + SKILL.md | [cursor.com](https://cursor.com/docs/skills) |
-| **Codex** | ✅ Ready | `./install.sh codex` | Dual: AGENTS.md + SKILL.md | [openai.com](https://developers.openai.com/codex/guides/agents-md) |
-| **OpenCode** | ✅ Ready | `./install.sh opencode` | Dual: AGENTS.md + SKILL.md | [opencode.ai](https://opencode.ai/docs/skills) |
-| **Hermes** | ✅ Ready | `./install.sh hermes` | Dual: SOUL.md + SKILL.md | [nousresearch.com](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
-| **Gemini CLI** | ✅ Ready | `./install.sh gemini-cli` | Dual: GEMINI.md + SKILL.md | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
-| **Pi** | ✅ Ready | `./install.sh pi` | Single: SKILL.md only | [github.com/badlogic/pi-mono](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md) |
+| **Claude Code** | ✅ Source-ready | `./scripts/install.sh claude-code` | Dual: CLAUDE.md + SKILL.md + commands/ | [code.claude.com](https://code.claude.com/docs/en/skills) |
+| **Cursor** | ✅ Source-ready | `./scripts/install.sh cursor` | Dual: .cursorrules + SKILL.md | [cursor.com](https://cursor.com/docs/skills) |
+| **Codex** | ✅ Source-ready | `./scripts/install.sh codex` | Dual: AGENTS.md + SKILL.md | [openai.com](https://developers.openai.com/codex/guides/agents-md) |
+| **OpenCode** | ✅ Source-ready | `./scripts/install.sh opencode` | Dual: AGENTS.md + SKILL.md | [opencode.ai](https://opencode.ai/docs/skills) |
+| **Hermes** | ✅ Source-ready | `./scripts/install.sh hermes` | Dual: SOUL.md + SKILL.md | [nousresearch.com](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
+| **Gemini CLI** | ✅ Source-ready | `./scripts/install.sh gemini-cli` | Dual: GEMINI.md + SKILL.md | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
+| **Pi** | ✅ Source-ready | `./scripts/install.sh pi` | Single: SKILL.md only | [github.com/badlogic/pi-mono](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md) |
 
 All 6 agents (except Pi) implement full dual-layer coverage. All 7 implement [agentskills.io](https://agentskills.io/specification) open standard for SKILL.md.
 
 ---
 
-## Core Techniques (Research-Backed)
+## What Gets Installed (And Why It Works)
 
 ### 1. Confidence Calibration & Labels (Mandatory)
 
-Every claim requires a confidence label. No label = no claim.
+Every claim requires a confidence label. No label, no claim.
 
 | Label | Meaning | Use When | Example |
 |-------|---------|----------|---------|
@@ -157,11 +157,11 @@ Every claim requires a confidence label. No label = no claim.
 | `[VERIFYING]` | Currently checking | In-process verification | "[VERIFYING] Checking config now..." |
 | `[SPECULATIVE]` | Hypothetical only | Exploring, not asserting | "[SPECULATIVE] One approach could be..." |
 
-**Enforcement:** The agent is trained to refuse making unlabeled claims. If caught without a label, it must immediately label or retract.
+If the agent makes an unlabeled claim, it labels or retracts immediately. No wriggle room.
 
 ### 2. The 7-Layer Verification System
 
-Systematic checkpoints prevent hallucination creep:
+Checkpoints that catch hallucinations before they compound:
 
 #### Layer 1: Pre-Thought Gate (Before ANY thinking)
 
@@ -175,7 +175,7 @@ Before processing any request, answer explicitly:
 6. For each assumption: How do I know this? (Source? Memory? Guessing?)
 7. For each assumption: What if this is wrong?
 
-**Rule:** Do NOT proceed until core assumptions verified.
+**Don't proceed until core assumptions are verified.**
 
 #### Layer 2: Mid-Process Gate (Every 30 seconds)
 
@@ -264,7 +264,7 @@ When error detected, follow this protocol exactly:
 
 ### 4. Real Error Pattern Library (Learned from Failures)
 
-These are real incidents. Learn from them:
+These came from actual sessions. Real failures, not hypotheticals:
 
 | # | Incident | What Went Wrong | Lesson |
 |---|----------|-----------------|--------|
@@ -304,9 +304,9 @@ User can force verification by saying:
 
 ---
 
-## Research Sources
+## Research Behind It
 
-All techniques in LLMVeritas are derived from peer-reviewed research and production systems:
+All techniques trace back to published research or production systems you can look up:
 
 | Technique | Source | Evidence | Citation |
 |-----------|--------|----------|----------|
@@ -320,7 +320,7 @@ All techniques in LLMVeritas are derived from peer-reviewed research and product
 | Constitutional AI | Anthropic 2022 | Self-critique loops | anthropic.com/research/cai |
 | Test-Time Compute | OpenAI o1 | Production reasoning | openai.com/o1-system-card |
 
-See `research/` directory for full literature review (7 comprehensive reports).
+See `research/` for the full literature review (7 reports).
 
 ---
 
@@ -390,7 +390,7 @@ LLMVeritas/
 
 ```bash
 # Install dependencies
-pip install jinja2 pyyaml
+pip install -r requirements.txt
 
 # Build all adapters (generates 15 files)
 python3 scripts/build.py
@@ -430,11 +430,11 @@ ls ~/GEMINI.md
 2. Edit templates in `templates/` if needed
 3. Run `python3 scripts/build.py` to regenerate
 4. Test with `./scripts/install.sh <agent>` on clean system
-5. Submit PR with research citations
+5. Submit PR with research citations — speculation without evidence doesn't belong here
 
 ---
 
-## Project Decisions & Tradeoffs
+## Design Decisions
 
 | Decision | Rationale | Tradeoff |
 |----------|-----------|----------|
@@ -443,7 +443,7 @@ ls ~/GEMINI.md
 | **Dual-Layer Architecture** | Global + on-demand coverage | More files to manage |
 | **SKILL.md Standard** | agentskills.io compatibility | Limits Pi to single-layer |
 | **Research-Backed Only** | Evidence-based techniques | Excludes trendy but unverified methods |
-| **gh CLI Distribution** | Your preference | Requires git, no curl|bash |
+| **Source-first Distribution** | You see every file before it installs | Requires a local build before install |
 
 ---
 
@@ -483,7 +483,7 @@ MIT License - See [LICENSE](LICENSE)
 
 > *"I pursue truth over comfort, wisdom over cleverness, and growth over defense."*
 
-**This is not a checklist. This is a way of being.**
+**This isn't a checklist. It's a standard.**
 
 Verify. Question. Admit. Fix. Repeat.
 

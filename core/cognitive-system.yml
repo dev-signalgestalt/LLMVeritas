@@ -17,7 +17,10 @@ metadata:
     - cursor
     - codex
     - opencode
-  status: claude-code-ready
+    - hermes
+    - gemini-cli
+    - pi
+  status: source-build-ready
 
 # =============================================================================
 # LAYER 1: PRE-THOUGHT VERIFICATION (Before ANY thinking)

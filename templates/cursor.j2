@@ -2,8 +2,8 @@
 {# SKILL.md format for Cursor #}
 {%- extends "base.j2" -%}
 
-{%- block metadata -%}
+{%- block extra_frontmatter -%}
 {%- if cursor_always_apply %}
 alwaysApply: {{ cursor_always_apply }}
-{%- endif %}
-{%- endblock -%}
+{% endif %}
+{%- endblock extra_frontmatter %}

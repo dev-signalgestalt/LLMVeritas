@@ -256,6 +256,17 @@ install_pi() {
     echo "   ✨ Pi installation complete!"
 }
 
+run_install() {
+    local agent_name="$1"
+    local install_fn="$2"
+
+    if "$install_fn"; then
+        INSTALL_SUCCESSES+=("$agent_name")
+    else
+        INSTALL_FAILURES+=("$agent_name")
+    fi
+}
+
 # Main installation logic
 case "$AGENT" in
     claude-code)
@@ -280,21 +291,24 @@ case "$AGENT" in
         install_pi
         ;;
     all)
+        INSTALL_SUCCESSES=()
+        INSTALL_FAILURES=()
+
         echo "🚀 Installing for all 7 agents..."
         echo
-        install_claude_code
+        run_install "claude-code" install_claude_code
         echo
-        install_cursor
+        run_install "cursor" install_cursor
         echo
-        install_codex
+        run_install "codex" install_codex
         echo
-        install_opencode
+        run_install "opencode" install_opencode
         echo
-        install_hermes
+        run_install "hermes" install_hermes
         echo
-        install_gemini_cli
+        run_install "gemini-cli" install_gemini_cli
         echo
-        install_pi
+        run_install "pi" install_pi
         ;;
     *)
         echo "❌ Unknown agent: $AGENT"
@@ -305,4 +319,21 @@ esac
 
 echo
 echo "======================"
-echo "✅ Installation complete!"
+
+if [ "$AGENT" = "all" ]; then
+    if [ ${#INSTALL_FAILURES[@]} -eq 0 ]; then
+        echo "✅ Installation complete!"
+        echo "Installed agents: ${INSTALL_SUCCESSES[*]}"
+    else
+        if [ ${#INSTALL_SUCCESSES[@]} -gt 0 ]; then
+            echo "⚠️  Installation partially complete."
+            echo "Installed agents: ${INSTALL_SUCCESSES[*]}"
+        else
+            echo "❌ Installation failed."
+        fi
+        echo "Failed agents: ${INSTALL_FAILURES[*]}"
+        exit 1
+    fi
+else
+    echo "✅ Installation complete!"
+fi

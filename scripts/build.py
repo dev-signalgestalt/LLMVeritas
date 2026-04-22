@@ -6,7 +6,6 @@ Generates platform-specific adapter files from core YAML spec using Jinja2 templ
 Usage:
     python3 scripts/build.py              # Build all adapters
     python3 scripts/build.py --agent cursor  # Build specific adapter
-    python3 scripts/build.py --watch      # Watch mode for development
 
 Requirements:
     pip install jinja2 pyyaml
