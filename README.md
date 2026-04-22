@@ -320,7 +320,7 @@ All techniques trace back to published research or production systems you can lo
 | Constitutional AI | Anthropic 2022 | Self-critique loops | anthropic.com/research/cai |
 | Test-Time Compute | OpenAI o1 | Production reasoning | openai.com/o1-system-card |
 
-See `research/` for the full literature review (7 reports).
+See `research/` for the full literature review (7 reports). *(Not yet included in this repository.)*
 
 ---
 
@@ -372,7 +372,7 @@ LLMVeritas/
 │   ├── build.py                   # Jinja2 template compiler
 │   └── install.sh                 # Universal installer (7 agents)
 │
-└── research/                        # Source material (SilverBullet workspace)
+└── research/                        # Literature review (not yet in repo)
     ├── 01_config_sync_and_portability.md
     ├── 02_architecture_cross_agent_cognitive.md
     ├── 03_systematic_techniques_self_monitoring.md
