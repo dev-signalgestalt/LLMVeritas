@@ -46,18 +46,18 @@ install_claude_code() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR/commands"
+    mkdir -p "$TARGET_DIR/commands" || return 1
     
     # Install CLAUDE.md (core global instructions)
     if [ -f "$SOURCE_DIR/CLAUDE.md" ]; then
-        cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.claude/CLAUDE.md (global instructions)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.claude/skills/llmwatcher/SKILL.md"
     fi
     
@@ -82,18 +82,18 @@ install_cursor() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR"
+    mkdir -p "$TARGET_DIR" || return 1
     
     # Install .cursorrules (global rules)
     if [ -f "$SOURCE_DIR/.cursorrules" ]; then
-        cp "$SOURCE_DIR/.cursorrules" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/.cursorrules" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.cursor/.cursorrules (global rules)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.cursor/skills/llmwatcher/SKILL.md"
     fi
     
@@ -112,18 +112,18 @@ install_codex() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR"
+    mkdir -p "$TARGET_DIR" || return 1
     
     # Install AGENTS.md (global instructions)
     if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
-        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.codex/AGENTS.md (global instructions)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.codex/skills/llmwatcher/SKILL.md"
     fi
     
@@ -141,18 +141,18 @@ install_opencode() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR"
+    mkdir -p "$TARGET_DIR" || return 1
     
     # Install AGENTS.md (global instructions)
     if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
-        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.config/opencode/AGENTS.md (global instructions)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher.md"
+        mkdir -p "$TARGET_DIR/skills" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher.md" || return 1
         echo "   ✅ Installed: ~/.config/opencode/skills/llmwatcher.md"
     fi
     
@@ -170,18 +170,18 @@ install_hermes() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR"
+    mkdir -p "$TARGET_DIR" || return 1
     
     # Install SOUL.md (primary agent identity)
     if [ -f "$SOURCE_DIR/SOUL.md" ]; then
-        cp "$SOURCE_DIR/SOUL.md" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/SOUL.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.hermes/SOUL.md (primary identity)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.hermes/skills/llmwatcher/SKILL.md"
     fi
     
@@ -202,21 +202,21 @@ install_gemini_cli() {
     
     # Install GEMINI.md (global context)
     if [ -f "$SOURCE_DIR/GEMINI.md" ]; then
-        cp "$SOURCE_DIR/GEMINI.md" "$TARGET_DIR/"
+        cp "$SOURCE_DIR/GEMINI.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/GEMINI.md (global context)"
     fi
     
     # Install SKILL.md to .gemini/skills/
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.gemini/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/.gemini/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.gemini/skills/llmwatcher/SKILL.md"
     fi
     
     # Also install to .agents/skills/ (alternative)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.agents/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmwatcher/"
+        mkdir -p "$TARGET_DIR/.agents/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.agents/skills/llmwatcher/SKILL.md"
     fi
     
@@ -235,25 +235,36 @@ install_pi() {
         return 1
     fi
     
-    mkdir -p "$TARGET_DIR"
+    mkdir -p "$TARGET_DIR" || return 1
     
     # Install SKILL.md to llmwatcher directory
     # IMPORTANT: Directory name MUST match 'name' field in SKILL.md
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmwatcher/"
+        mkdir -p "$TARGET_DIR/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.pi/agent/skills/llmwatcher/SKILL.md"
     fi
     
     # Also install to .agents/skills/ alternative location
-    mkdir -p "$HOME/.agents/skills"
+    mkdir -p "$HOME/.agents/skills" || return 1
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$HOME/.agents/skills/llmwatcher"
-        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmwatcher/"
+        mkdir -p "$HOME/.agents/skills/llmwatcher" || return 1
+        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmwatcher/" || return 1
         echo "   ✅ Installed: ~/.agents/skills/llmwatcher/SKILL.md"
     fi
     
     echo "   ✨ Pi installation complete!"
+}
+
+run_install() {
+    local agent_name="$1"
+    local install_fn="$2"
+
+    if "$install_fn"; then
+        INSTALL_SUCCESSES+=("$agent_name")
+    else
+        INSTALL_FAILURES+=("$agent_name")
+    fi
 }
 
 # Main installation logic
@@ -280,21 +291,24 @@ case "$AGENT" in
         install_pi
         ;;
     all)
+        INSTALL_SUCCESSES=()
+        INSTALL_FAILURES=()
+
         echo "🚀 Installing for all 7 agents..."
         echo
-        install_claude_code
+        run_install "claude-code" install_claude_code
         echo
-        install_cursor
+        run_install "cursor" install_cursor
         echo
-        install_codex
+        run_install "codex" install_codex
         echo
-        install_opencode
+        run_install "opencode" install_opencode
         echo
-        install_hermes
+        run_install "hermes" install_hermes
         echo
-        install_gemini_cli
+        run_install "gemini-cli" install_gemini_cli
         echo
-        install_pi
+        run_install "pi" install_pi
         ;;
     *)
         echo "❌ Unknown agent: $AGENT"
@@ -305,4 +319,21 @@ esac
 
 echo
 echo "======================"
-echo "✅ Installation complete!"
+
+if [ "$AGENT" = "all" ]; then
+    if [ ${#INSTALL_FAILURES[@]} -eq 0 ]; then
+        echo "✅ Installation complete!"
+        echo "Installed agents: ${INSTALL_SUCCESSES[*]}"
+    else
+        if [ ${#INSTALL_SUCCESSES[@]} -gt 0 ]; then
+            echo "⚠️  Installation partially complete."
+            echo "Installed agents: ${INSTALL_SUCCESSES[*]}"
+        else
+            echo "❌ Installation failed."
+        fi
+        echo "Failed agents: ${INSTALL_FAILURES[*]}"
+        exit 1
+    fi
+else
+    echo "✅ Installation complete!"
+fi

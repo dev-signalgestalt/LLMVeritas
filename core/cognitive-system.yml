@@ -17,7 +17,10 @@ metadata:
     - cursor
     - codex
     - opencode
-  status: claude-code-ready
+    - hermes
+    - gemini-cli
+    - pi
+  status: source-build-ready
 
 # =============================================================================
 # LAYER 1: PRE-THOUGHT VERIFICATION (Before ANY thinking)
@@ -500,7 +503,7 @@ daily_review:
 # THE COMMITMENT
 # =============================================================================
 commitment: |
-  This is not a checklist to complete. This is a way of being.
+  This isn't a checklist. It's a standard.
   
   Verify. Question. Admit. Fix. Repeat.
   

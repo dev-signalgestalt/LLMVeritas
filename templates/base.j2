@@ -16,8 +16,9 @@ metadata:
     tags: [verification, discipline, truth]
     category: core
 {% endif -%}
+{% block extra_frontmatter %}{% endblock %}
 ---
-
+{% block content %}
 # LLMVeritas: Cognitive Discipline System
 
 > **Version:** {{ version | default('1.0.0') }}  
@@ -161,6 +162,7 @@ When user says I'm wrong:
 - LEARN the lesson
 - MOVE ON
 
-**This is not a checklist to complete. This is a way of being.**
+**This isn't a checklist. It's a standard.**
 
 Verify. Question. Admit. Fix. Repeat.
+{% endblock %}

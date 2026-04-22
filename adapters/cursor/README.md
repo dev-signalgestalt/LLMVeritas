@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Cursor Skills Documentation](https://cursor.com/docs/skills)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 

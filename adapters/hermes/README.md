@@ -2,7 +2,7 @@
 
 > **Verified Source:** [Hermes Agent Skills Documentation](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)  
 > **Standard:** [agentskills.io/specification](https://agentskills.io/specification)  
-> **Status:** ✅ Fully Supported
+> **Status:** ✅ Source-ready
 
 ---
 

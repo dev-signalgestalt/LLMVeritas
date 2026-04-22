@@ -2,11 +2,11 @@
 {# SKILL.md format for Claude Code #}
 {%- extends "base.j2" -%}
 
-{%- block metadata -%}
+{%- block extra_frontmatter -%}
 {%- if claude_context %}
 context: {{ claude_context }}
-{%- endif %}
+{% endif %}
 {%- if claude_effort %}
 effort: {{ claude_effort }}
-{%- endif %}
-{%- endblock -%}
+{% endif %}
+{%- endblock extra_frontmatter %}
