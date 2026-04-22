@@ -93,36 +93,48 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 ## Quick Start
 
-### Source Install
+### One-Command Setup
 
 ```bash
-# Clone from GitHub
+git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
+cd ~/.llmveritas
+./setup.sh claude-code     # or: cursor, codex, opencode, hermes, gemini-cli, pi, all
+```
+
+That's it. `setup.sh` creates a venv, installs dependencies, builds adapter files, and installs them. No extra steps.
+
+### Manual Install
+
+If you prefer to run each step yourself:
+
+```bash
 git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
 cd ~/.llmveritas
 
-# Install build dependencies
+# Install build dependencies (or use: python3 -m venv .venv && .venv/bin/pip install -r requirements.txt)
 pip install -r requirements.txt
 
 # Build adapter files
 python3 scripts/build.py
 
-# Install for all 7 agents
-./scripts/install.sh all
+# Install for a specific agent
+./scripts/install.sh claude-code
 ```
 
 Note: `generated/` doesn't exist in a fresh clone — run `build.py` first.
 
-### Per-Agent Install
+### Supported Agent Names
 
-```bash
-./scripts/install.sh claude-code    # Claude Code
-./scripts/install.sh cursor         # Cursor
-./scripts/install.sh codex          # Codex CLI
-./scripts/install.sh opencode       # OpenCode
-./scripts/install.sh hermes         # Hermes Agent
-./scripts/install.sh gemini-cli     # Gemini CLI
-./scripts/install.sh pi             # Pi Coding Agent
-```
+| Name | Agent |
+|------|-------|
+| `claude-code` | Claude Code |
+| `cursor` | Cursor |
+| `codex` | Codex CLI |
+| `opencode` | OpenCode |
+| `hermes` | Hermes Agent |
+| `gemini-cli` | Gemini CLI |
+| `pi` | Pi Coding Agent |
+| `all` | All 7 agents |
 
 ---
 
