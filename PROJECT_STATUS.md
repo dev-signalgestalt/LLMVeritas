@@ -1,7 +1,7 @@
 # LLMVeritas Project Status
 
 **Date:** 2026-04-22  
-**Status:** ✅ Source Build Ready → 🚧 Validation & Packaging Next
+**Status:** ✅ Source Build Ready + Repo-Based Updates Implemented
 
 ---
 
@@ -10,9 +10,12 @@
 The repository is currently a source-first distribution:
 
 - The core YAML spec, templates, and installer are implemented.
-- A fresh checkout must run `python3 scripts/build.py` before `./scripts/install.sh`.
+- A fresh checkout installs with `./setup.sh <agent>`.
+- Existing installs update with `./update.sh [agent|all]`.
 - `generated/` remains local build output and is not expected to be committed.
 - The current scripts support 7 target agents: Claude Code, Cursor, Codex, OpenCode, Hermes, Gemini CLI, and Pi.
+- Installed targets are tracked in `~/.llmveritas/install-state.json`.
+- Replaced files are backed up under `~/.llmveritas/backups/`.
 
 ## Implemented
 
@@ -20,6 +23,8 @@ The repository is currently a source-first distribution:
 - Jinja2 template set for shared and agent-specific outputs
 - Build pipeline in `scripts/build.py`
 - Universal installer in `scripts/install.sh`
+- Repo-based updater in `update.sh`
+- Install-state and backup helper in `scripts/install_state.py`
 - Adapter documentation under `adapters/`
 - Research-backed verification and anti-hallucination system design
 
@@ -30,12 +35,17 @@ Use this workflow from a fresh clone:
 ```bash
 git clone https://github.com/dev-signalgestalt/LLMVeritas.git ~/.llmveritas
 cd ~/.llmveritas
-pip install -r requirements.txt
-python3 scripts/build.py
-./scripts/install.sh all
+./setup.sh all
 ```
 
-This repository does not currently provide a standalone bootstrap installer that can succeed without first building local artifacts.
+Use this workflow later on the same machine:
+
+```bash
+cd ~/.llmveritas
+./update.sh
+```
+
+This repository still does not provide a standalone bootstrap installer outside the repo clone; updates are intentionally managed from the local checkout.
 
 ## Next Priorities
 
@@ -48,6 +58,7 @@ This repository does not currently provide a standalone bootstrap installer that
 
 - Pi remains single-layer via `SKILL.md` only.
 - Source distribution requires local Python dependencies.
+- `./update.sh` expects a git checkout and uses `git pull --ff-only`.
 - Agent support claims are documentation-backed, but full cross-environment validation is still in progress.
 
 ## Notes
