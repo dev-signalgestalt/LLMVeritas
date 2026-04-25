@@ -117,8 +117,11 @@ install_cursor() {
     cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
     echo "   ✅ Installed: ~/.cursor/skills/llmveritas/SKILL.md"
     
-    require_file "$SOURCE_DIR/llmveritas.mdc" || return 1
-    
+    require_file "$SOURCE_DIR/llmveritas.mdc" || {
+        echo "      Then copy generated/cursor/llmveritas.mdc to your project's .cursor/rules/ for Agent mode"
+        return 1
+    }
+
     echo "   ✨ Cursor installation complete!"
     echo "      .cursorrules → Chat/Composer mode"
     echo "      For Agent mode, copy generated/cursor/llmveritas.mdc to your project's .cursor/rules/"

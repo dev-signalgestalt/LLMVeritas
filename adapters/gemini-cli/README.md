@@ -74,6 +74,8 @@ From [Gemini CLI Skills Discovery](https://geminicli.com/docs/cli/skills/) [^1]:
 | **Project** | `.agents/skills/` | Shared agent skills directory |
 | **User** | `~/.gemini/skills/` | Personal skills across projects |
 
+> **Note:** `~/.agents/skills/` is supported at project scope (`.agents/skills/`) but is not a user-level discovery path for Gemini CLI per official docs — only `~/.gemini/skills/` is. This differs from Codex, where `~/.agents/skills/` is the primary user-level path.
+
 ---
 
 ## Setup

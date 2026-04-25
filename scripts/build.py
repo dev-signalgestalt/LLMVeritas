@@ -217,27 +217,32 @@ def validate_generated_file(file_path, agent, verbose=False):
     if basename in ("SKILL.md",) or (basename.endswith(".mdc") and "name:" in content[:200]):
         fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
         if fm_match:
+            fm_data = {}
             try:
-                yaml.safe_load(fm_match.group(1))
+                fm_data = yaml.safe_load(fm_match.group(1)) or {}
+                if not isinstance(fm_data, dict):
+                    errors.append(f"Frontmatter is not a YAML mapping in {basename}")
+                    fm_data = {}
             except yaml.YAMLError as e:
                 errors.append(f"Invalid YAML frontmatter in {basename}: {e}")
-
-            fm_text = fm_match.group(1)
-            if "name:" not in fm_text:
+            if "name" not in fm_data:
                 errors.append(f"Missing 'name' in frontmatter: {basename}")
-            if "description:" not in fm_text:
+            if "description" not in fm_data:
                 errors.append(f"Missing 'description' in frontmatter: {basename}")
         elif basename == "SKILL.md":
             errors.append(f"Missing YAML frontmatter in {basename}")
     elif basename.endswith(".mdc"):
         fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
         if fm_match:
+            fm_data = {}
             try:
-                yaml.safe_load(fm_match.group(1))
+                fm_data = yaml.safe_load(fm_match.group(1)) or {}
+                if not isinstance(fm_data, dict):
+                    errors.append(f"Frontmatter is not a YAML mapping in {basename}")
+                    fm_data = {}
             except yaml.YAMLError as e:
                 errors.append(f"Invalid YAML frontmatter in {basename}: {e}")
-            fm_text = fm_match.group(1)
-            if "description:" not in fm_text:
+            if "description" not in fm_data:
                 errors.append(f"Missing 'description' in frontmatter: {basename}")
     elif basename.endswith(".md") and "description:" in content[:200]:
         fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
