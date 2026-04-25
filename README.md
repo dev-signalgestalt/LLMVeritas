@@ -89,6 +89,7 @@ Always-loaded global instructions that define agent identity:
 | **Claude Code** | `CLAUDE.md` | `~/.claude/CLAUDE.md` | Global identity + verification rules |
 | **Claude Code** | Commands | `~/.claude/commands/` | `/introspect`, `/verify` commands |
 | **Cursor** | `.cursorrules` | `~/.cursor/.cursorrules` | Always-on discipline rules |
+| **Cursor** | MDC rule | `.cursor/rules/llmveritas.mdc` | Agent mode rules (project-level) |
 | **Codex** | `AGENTS.md` | `~/.codex/AGENTS.md` | Global agent instructions |
 | **OpenCode** | `AGENTS.md` | `~/.config/opencode/AGENTS.md` | Global workflow rules |
 | **Hermes** | `SOUL.md` | `~/.hermes/SOUL.md` | Primary identity (slot #1) |
@@ -102,7 +103,7 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 |-------|----------------|
 | **Claude Code** | `~/.claude/skills/llmveritas/SKILL.md` |
 | **Cursor** | `~/.cursor/skills/llmveritas/SKILL.md` |
-| **Codex** | `~/.codex/skills/llmveritas/SKILL.md` |
+| **Codex** | `~/.agents/skills/llmveritas/SKILL.md` + `~/.codex/skills/llmveritas/SKILL.md` |
 | **OpenCode** | `~/.config/opencode/skills/llmveritas.md` |
 | **Hermes** | `~/.hermes/skills/llmveritas/SKILL.md` |
 | **Gemini CLI** | `~/.gemini/skills/llmveritas/SKILL.md` |
@@ -119,7 +120,7 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 | Agent | Status | Setup | Coverage | Verified |
 |-------|--------|-------|----------|----------|
 | **Claude Code** | ✅ Source-ready | `./setup.sh claude-code` | Dual: CLAUDE.md + SKILL.md + commands/ | [code.claude.com](https://code.claude.com/docs/en/skills) |
-| **Cursor** | ✅ Source-ready | `./setup.sh cursor` | Dual: .cursorrules + SKILL.md | [cursor.com](https://cursor.com/docs/skills) |
+| **Cursor** | ✅ Source-ready | `./setup.sh cursor` | Dual: .cursorrules + SKILL.md + .mdc for Agent mode | [cursor.com](https://cursor.com/docs/skills) |
 | **Codex** | ✅ Source-ready | `./setup.sh codex` | Dual: AGENTS.md + SKILL.md | [openai.com](https://developers.openai.com/codex/guides/agents-md) |
 | **OpenCode** | ✅ Source-ready | `./setup.sh opencode` | Dual: AGENTS.md + SKILL.md | [opencode.ai](https://opencode.ai/docs/skills) |
 | **Hermes** | ✅ Source-ready | `./setup.sh hermes` | Dual: SOUL.md + SKILL.md | [nousresearch.com](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) |
@@ -127,6 +128,8 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 | **Pi** | ✅ Source-ready | `./setup.sh pi` | Single: SKILL.md only | [github.com/badlogic/pi-mono](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent/docs/skills.md) |
 
 All 6 agents (except Pi) implement full dual-layer coverage. All 7 implement [agentskills.io](https://agentskills.io/specification) open standard for SKILL.md.
+
+**Cursor Agent mode note:** `.cursorrules` works in Chat/Composer mode but is silently ignored in Cursor's Agent mode. For Agent mode support, copy the generated `llmveritas.mdc` file to your project's `.cursor/rules/` directory; the installer does not write project-scoped rules globally.
 
 ---
 
@@ -228,7 +231,9 @@ STOP immediately when:
 
 **Action:** STOP → Verify sources → Don't continue building on error.
 
-#### Layer 7: Post-Output Verification
+#### Layer 7: Confidence Labels (Mandatory)
+
+Every substantive claim MUST have a confidence label. No label, no claim.
 
 Before finalizing response:
 
@@ -296,17 +301,31 @@ User can force verification by saying:
 
 All techniques trace back to published research or production systems you can look up:
 
-| Technique | Source | Evidence | Citation |
-|-----------|--------|----------|----------|
-| Confidence Labels | Our production testing | Real incident reduction | — |
-| Verification Gates | Cognitive Verifier Protocol | 7-layer system | Truth Teller System |
-| Socratic Loop | Truth Teller System | 60-second introspection | — |
-| Self-Consistency | Wang et al. 2022 | +17.9 points on GSM8K | arXiv:2203.11171 |
-| Process Reward Models | OpenAI PRM800K | Step-level correctness | github.com/openai/prm800k |
-| MCTS for Code | MCTS-Judge | 41% → 80% code accuracy | arXiv:2502.12468 |
-| Toolformer | Meta AI 2023 | Self-supervised tool use | arXiv:2302.04761 |
-| Constitutional AI | Anthropic 2022 | Self-critique loops | anthropic.com/research/cai |
-| Test-Time Compute | OpenAI o1 | Production reasoning | openai.com/o1-system-card |
+### Directly Implemented (Prompt Techniques)
+
+These are concrete mechanisms built into LLMVeritas:
+
+| Technique | Source | What We Implement |
+|-----------|--------|-------------------|
+| Verification Gates | Cognitive Verifier Protocol | 7-layer checkpoint system |
+| Pattern Interrupts | Behavioral intervention design | Automatic thought-pattern transformation |
+| Self-Correction Protocol | Production incident analysis | STOP-ADMIT-VERIFY-FIX-LEARN-MOVE ON |
+| Confidence Labels | Structured output scaffolding | Mandatory categorical labels on every claim |
+
+### Informed By (Research Principles)
+
+These research findings informed our design. We approximate their training-time results with prompt-time instructions:
+
+| Technique | Source | Evidence | What We Approximate |
+|-----------|--------|----------|---------------------|
+| Confidence Calibration | MIT CSAIL RLCR (2026) | 90% calibration error reduction via RL training | Prompt-based categorical labels approximate training-time calibration |
+| Prompt-Steered Confidence | SteeringConf (arXiv:2503.02863) | ECE reduction up to 39.8% with extreme prompt steering | Moderate confidence instructions via labels |
+| Self-Consistency | Wang et al. 2022 | +17.9 points on GSM8K | Multi-path reasoning guidance |
+| Process Reward Models | OpenAI PRM800K | Step-level correctness | Step-by-step verification guidance |
+| MCTS for Code | MCTS-Judge (arXiv:2502.12468) | 41% → 80% code accuracy | Search-based reasoning for complex tasks |
+| Toolformer | Meta AI 2023 | Self-supervised tool use | Tool-call verification guidance |
+| Constitutional AI | Anthropic 2022 | Self-critique loops | Self-correction protocol |
+| Test-Time Compute | OpenAI o1 | Production reasoning | Adaptive verification depth |
 
 See `research/` for the full literature review (7 reports). *(Not yet included in this repository.)*
 
@@ -329,7 +348,8 @@ LLMVeritas/
 ├── templates/                     # 16 Jinja2 templates
 │   ├── base.j2                    # Core template (all agents)
 │   ├── claude-md.j2             # Claude global instructions
-│   ├── cursorrules.j2           # Cursor global rules
+│   ├── cursorrules.j2           # Cursor global rules (legacy, Chat/Composer only)
+│   ├── cursor-mdc.j2            # Cursor Agent mode rules (.mdc format)
 │   ├── agents-md.j2             # Generic AGENTS.md
 │   ├── opencode-agents-md.j2    # OpenCode global instructions
 │   ├── soul-md.j2               # Hermes primary identity

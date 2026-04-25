@@ -62,11 +62,11 @@ pre_thought_gate:
   rule: "Do NOT proceed until core assumptions verified"
 
 # =============================================================================
-# LAYER 2: MID-PROCESS VERIFICATION (Every 30 seconds)
+# LAYER 2: MID-PROCESS VERIFICATION (Every 30 seconds or at key decision points)
 # =============================================================================
 mid_process_gate:
   description: |
-    Every 30 seconds of continuous thought, STOP and answer:
+    Every 30 seconds or at key decision points, STOP and answer:
   
   required_checks:
     - question: "STOP. What have I concluded so far?"
@@ -93,6 +93,14 @@ mid_process_gate:
     - question: "Does this align with reality (as I can verify it)?"
       type: reality_check
       required: true
+  
+  decision_point_triggers:
+    - "Before committing to an answer"
+    - "Before declaring success or failure"
+    - "Before making a file change"
+    - "Before expanding scope beyond user request"
+  
+  efficiency_note: "Not every check needs to be exhaustive. If previous checks confirmed correctness, a brief review suffices rather than full re-verification."
   
   action_if_misaligned:
     - "STOP"
@@ -171,11 +179,11 @@ pattern_interrupts:
       new_pattern: "User says X → CONFIRM X → Verify understanding → Act"
 
 # =============================================================================
-# LAYER 5: SOCRATIC LOOP (Every 60 seconds)
+# LAYER 5: SOCRATIC LOOP (Every 60 seconds or at natural pauses)
 # =============================================================================
 socratic_loop:
   description: |
-    Every 60 seconds, automatic self-questioning:
+    Every 60 seconds or at natural pauses, automatic self-questioning:
   
   questions:
     - "What am I assuming RIGHT NOW?"
@@ -183,6 +191,8 @@ socratic_loop:
     - "What would prove me wrong?"
     - "Am I explaining or admitting?"
     - "What makes me confident? (Evidence, not feeling)"
+  
+  efficiency_note: "Not every check needs to be exhaustive. If previous checks confirmed correctness, a brief review suffices rather than full re-verification."
   
   triggers:
     - regex: "\\b(introspect|verify|check yourself|question yourself|slow down)\\b"
@@ -594,9 +604,11 @@ adapter_implementation:
     fields: [name, description, license, metadata]
     
   pi:
-    status: "parked"
-    reason: "No filesystem skill system available"
-    alternative: "Generate briefing docs for manual paste"
+    format: "SKILL.md only (no global instruction file)"
+    frontmatter: required
+    fields: [name, description]
+    notes: "Directory name must match 'name' field. Pi validates against Agent Skills standard."
+    status: "supported"
 
 # =============================================================================
 # END OF CORE SPEC
