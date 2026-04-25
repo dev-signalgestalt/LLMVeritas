@@ -11,7 +11,6 @@ Requirements:
     pip install -r requirements.txt
 """
 
-import os
 import re
 import sys
 import yaml
@@ -41,6 +40,21 @@ AGENT_DIRS = {
     "hermes": "~/.hermes/skills/llmveritas",
     "gemini-cli": "~/.gemini/skills/llmveritas",
     "pi": "~/.pi/agent/skills/llmveritas",
+}
+
+EXPECTED_FILES = {
+    "claude-code": [
+        "SKILL.md",
+        "CLAUDE.md",
+        "commands/introspect.md",
+        "commands/verify.md",
+    ],
+    "cursor": ["SKILL.md", ".cursorrules", "llmveritas.mdc"],
+    "codex": ["SKILL.md", "AGENTS.md"],
+    "opencode": ["SKILL.md", "AGENTS.md"],
+    "hermes": ["SKILL.md", "SOUL.md"],
+    "gemini-cli": ["SKILL.md", "GEMINI.md"],
+    "pi": ["SKILL.md"],
 }
 
 
@@ -127,9 +141,7 @@ def build_agent(agent, spec, env, verbose=False):
         print(f"      📊 {lines} lines")
     
     # Build core instruction files per agent
-    build_core_files(agent, spec, env, output_dir, verbose)
-    
-    return True
+    return build_core_files(agent, spec, env, output_dir, verbose)
 
 
 def build_core_files(agent, spec, env, output_dir, verbose=False):
@@ -161,6 +173,8 @@ def build_core_files(agent, spec, env, output_dir, verbose=False):
     
     files_to_build = core_files.get(agent, [])
     
+    success = True
+
     for template_name, output_name in files_to_build:
         try:
             template = env.get_template(template_name)
@@ -185,7 +199,10 @@ def build_core_files(agent, spec, env, output_dir, verbose=False):
                 print(f"      📊 {lines} lines")
                 
         except Exception as e:
-            print(f"   ⚠️  {output_name}: {e}")
+            print(f"   ❌ {output_name}: {e}")
+            success = False
+
+    return success
 
 
 def validate_generated_file(file_path, agent, verbose=False):
@@ -238,12 +255,24 @@ def validate_generated_file(file_path, agent, verbose=False):
 
 
 def validate_all_generated(verbose=False):
+    return validate_generated_agents(AGENTS, verbose)
+
+
+def validate_generated_agents(agents, verbose=False):
     all_errors = []
-    for agent in AGENTS:
+    for agent in agents:
         agent_dir = GENERATED_DIR / agent
         if not agent_dir.exists():
             all_errors.append(f"Missing directory: {agent}")
             continue
+
+        for expected_file in EXPECTED_FILES.get(agent, []):
+            expected_path = agent_dir / expected_file
+            if not expected_path.exists():
+                all_errors.append(f"Missing expected file for {agent}: {expected_file}")
+            elif expected_path.stat().st_size == 0:
+                all_errors.append(f"Empty expected file for {agent}: {expected_file}")
+
         for f in sorted(agent_dir.rglob("*")):
             if f.is_file():
                 errs = validate_generated_file(f, agent, verbose)
@@ -261,6 +290,8 @@ def build_claude_commands(spec, env, verbose=False):
         ("command-verify.j2", "verify.md"),
     ]
     
+    success = True
+
     for template_name, output_name in commands:
         try:
             template = env.get_template(template_name)
@@ -273,7 +304,10 @@ def build_claude_commands(spec, env, verbose=False):
             print(f"   ✅ Command: {output_name}")
             
         except Exception as e:
-            print(f"   ⚠️  Command {output_name}: {e}")
+            print(f"   ❌ Command {output_name}: {e}")
+            success = False
+
+    return success
 
 
 def build_all(spec, env, verbose=False):
@@ -289,7 +323,9 @@ def build_all(spec, env, verbose=False):
     
     # Build Claude Code commands separately
     print("🔨 claude-code commands...")
-    build_claude_commands(spec, env, verbose)
+    command_success = build_claude_commands(spec, env, verbose)
+    if not command_success:
+        results["claude-code"] = False
     print()
     
     # Summary
@@ -325,7 +361,7 @@ def print_installation_guide():
     print()
     print("Core Instruction Files (Global):")
     print("  claude-code  → ~/.claude/CLAUDE.md + commands/")
-    print("  cursor       → ~/.cursor/.cursorrules + .cursor/rules/llmveritas.mdc")
+    print("  cursor       → ~/.cursor/.cursorrules")
     print("  codex        → ~/.codex/AGENTS.md")
     print("  opencode     → ~/.config/opencode/AGENTS.md")
     print("  hermes       → ~/.hermes/SOUL.md")
@@ -342,7 +378,7 @@ def print_installation_guide():
     print()
     print("Cursor Agent Mode:")
     print("  Copy generated/cursor/llmveritas.mdc to your project's .cursor/rules/ directory")
-    print("  (Global .cursorrules works in Chat/Composer but is silently ignored in Agent mode)")
+    print("  (Cursor project rules are project-scoped; install.sh does not write them globally)")
 
 
 def main():
@@ -391,27 +427,36 @@ Examples:
     
     # Build requested adapters
     if args.agent == "all":
-        build_all(spec, env, args.verbose)
+        results = build_all(spec, env, args.verbose)
+        if not all(results.values()):
+            sys.exit(1)
+        agents_to_validate = AGENTS
     else:
         print(f"🔨 Building {args.agent}...")
         success = build_agent(args.agent, spec, env, args.verbose)
+        if args.agent == "claude-code":
+            print()
+            print("🔨 claude-code commands...")
+            success = build_claude_commands(spec, env, args.verbose) and success
         print()
         if success:
             print(f"✅ {args.agent} adapter generated successfully")
         else:
             print(f"❌ {args.agent} adapter generation failed")
             sys.exit(1)
+        agents_to_validate = [args.agent]
     
     # Print installation guide
     print_installation_guide()
 
     print()
     print("🔍 Validating generated files...")
-    errors = validate_all_generated(args.verbose)
+    errors = validate_generated_agents(agents_to_validate, args.verbose)
     if errors:
-        print(f"   ⚠️  {len(errors)} validation issue(s):")
+        print(f"   ❌ {len(errors)} validation issue(s):")
         for e in errors:
             print(f"      - {e}")
+        sys.exit(1)
     else:
         print("   ✅ All generated files passed validation")
     

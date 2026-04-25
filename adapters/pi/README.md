@@ -84,9 +84,7 @@ From [Pi Skills Documentation](https://github.com/badlogic/pi-mono/tree/main/pac
 | Location | Path | Priority |
 |------------|------|----------|
 | **Global** | `~/.pi/agent/skills/` | Standard |
-| **Global alt** | `~/.agents/skills/` | Alternative |
 | **Project** | `.pi/skills/` | Project-specific |
-| **Project alt** | `.agents/skills/` | Alternative |
 | **Packages** | `skills/` in package dir | From `package.json` |
 | **CLI** | `--skill <path>` flag | Explicit |
 
@@ -110,8 +108,6 @@ This creates a venv, installs dependencies, builds adapter files, and installs t
 # Primary installation directory
 ~/.pi/agent/skills/llmveritas/SKILL.md
 
-# Alternative (also valid)
-~/.agents/skills/llmveritas/SKILL.md
 ```
 
 ---

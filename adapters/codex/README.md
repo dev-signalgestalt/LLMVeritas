@@ -11,7 +11,7 @@
 Codex CLI receives **dual-layer** LLMVeritas coverage:
 
 1. **Global Instructions:** `AGENTS.md` (always loaded)
-2. **On-Demand Skill:** `SKILL.md` in `~/.codex/skills/llmveritas/` (loaded when needed)
+2. **On-Demand Skill:** `SKILL.md` in `~/.agents/skills/llmveritas/` (loaded when needed)
 
 ---
 
@@ -20,7 +20,7 @@ Codex CLI receives **dual-layer** LLMVeritas coverage:
 | File | Purpose | Installation |
 |------|---------|--------------|
 | `AGENTS.md` | Global instructions | `~/.codex/AGENTS.md` |
-| `SKILL.md` | On-demand skill | `~/.codex/skills/llmveritas/SKILL.md` |
+| `SKILL.md` | On-demand skill | `~/.agents/skills/llmveritas/SKILL.md` + `~/.codex/skills/llmveritas/SKILL.md` |
 
 ---
 
@@ -45,8 +45,9 @@ Codex reads `AGENTS.md` from `~/.codex/` automatically. These apply to all proje
 ### Skills
 
 Codex discovers skills from:
-- `~/.codex/skills/<name>/SKILL.md`
-- `.codex/skills/<name>/SKILL.md` (project-local)
+- `~/.agents/skills/<name>/SKILL.md` (user)
+- `.agents/skills/<name>/SKILL.md` (project-local)
+- `~/.codex/skills/<name>/SKILL.md` (forward compatibility)
 
 ---
 
@@ -56,6 +57,7 @@ Check installation:
 
 ```bash
 ls ~/.codex/AGENTS.md
+ls ~/.agents/skills/llmveritas/SKILL.md
 ls ~/.codex/skills/llmveritas/SKILL.md
 ```
 

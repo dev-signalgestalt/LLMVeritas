@@ -15,6 +15,15 @@ warn_overwrite() {
     fi
 }
 
+require_file() {
+    local file="$1"
+    if [ ! -f "$file" ]; then
+        echo "   ❌ Missing expected generated file: $file"
+        echo "      Run: python3 scripts/build.py"
+        return 1
+    fi
+}
+
 echo "🔧 LLMVeritas Installer"
 echo "======================"
 echo
@@ -56,29 +65,27 @@ install_claude_code() {
     mkdir -p "$TARGET_DIR/commands" || return 1
     
     # Install CLAUDE.md (core global instructions)
-    if [ -f "$SOURCE_DIR/CLAUDE.md" ]; then
-        warn_overwrite "$TARGET_DIR/CLAUDE.md"
-        cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.claude/CLAUDE.md (global instructions)"
-    fi
+    require_file "$SOURCE_DIR/CLAUDE.md" || return 1
+    warn_overwrite "$TARGET_DIR/CLAUDE.md"
+    cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/.claude/CLAUDE.md (global instructions)"
     
     # Install SKILL.md (skill version)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.claude/skills/llmveritas/SKILL.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.claude/skills/llmveritas/SKILL.md"
     
     # Install commands
-    if [ -d "$SOURCE_DIR/commands" ]; then
-        for cmd_file in "$SOURCE_DIR/commands/"*.md; do
-            [ -f "$cmd_file" ] || continue
-            warn_overwrite "$TARGET_DIR/commands/$(basename "$cmd_file")"
-        done
-        cp "$SOURCE_DIR/commands/"*.md "$TARGET_DIR/commands/" 2>/dev/null || true
-        echo "   ✅ Installed: ~/.claude/commands/"
-    fi
+    require_file "$SOURCE_DIR/commands/introspect.md" || return 1
+    require_file "$SOURCE_DIR/commands/verify.md" || return 1
+    for cmd_file in "$SOURCE_DIR/commands/"*.md; do
+        [ -f "$cmd_file" ] || continue
+        warn_overwrite "$TARGET_DIR/commands/$(basename "$cmd_file")"
+    done
+    cp "$SOURCE_DIR/commands/"*.md "$TARGET_DIR/commands/" || return 1
+    echo "   ✅ Installed: ~/.claude/commands/"
     
     echo "   ✨ Claude Code installation complete!"
     echo "      Restart Claude Code to activate."
@@ -98,31 +105,23 @@ install_cursor() {
     mkdir -p "$TARGET_DIR" || return 1
     
     # Install .cursorrules (legacy global rules — works in Chat/Composer, NOT in Agent mode)
-    if [ -f "$SOURCE_DIR/.cursorrules" ]; then
-        warn_overwrite "$TARGET_DIR/.cursorrules"
-        cp "$SOURCE_DIR/.cursorrules" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.cursor/.cursorrules (legacy global rules)"
-    fi
+    require_file "$SOURCE_DIR/.cursorrules" || return 1
+    warn_overwrite "$TARGET_DIR/.cursorrules"
+    cp "$SOURCE_DIR/.cursorrules" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/.cursor/.cursorrules (legacy global rules)"
     
     # Install SKILL.md (skill version)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.cursor/skills/llmveritas/SKILL.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.cursor/skills/llmveritas/SKILL.md"
     
-    # Generate MDC rule file for Agent mode support
-    if [ -f "$SOURCE_DIR/llmveritas.mdc" ]; then
-        mkdir -p "$TARGET_DIR/rules" || return 1
-        warn_overwrite "$TARGET_DIR/rules/llmveritas.mdc"
-        cp "$SOURCE_DIR/llmveritas.mdc" "$TARGET_DIR/rules/" || return 1
-        echo "   ✅ Installed: ~/.cursor/rules/llmveritas.mdc (Agent mode rules)"
-    fi
+    require_file "$SOURCE_DIR/llmveritas.mdc" || return 1
     
     echo "   ✨ Cursor installation complete!"
     echo "      .cursorrules → Chat/Composer mode"
-    echo "      llmveritas.mdc → Project-level Agent mode (copy to your project's .cursor/rules/)"
+    echo "      For Agent mode, copy generated/cursor/llmveritas.mdc to your project's .cursor/rules/"
     echo "      Restart Cursor to activate."
 }
 
@@ -140,25 +139,23 @@ install_codex() {
     mkdir -p "$TARGET_DIR" || return 1
     
     # Install AGENTS.md (global instructions)
-    if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
-        warn_overwrite "$TARGET_DIR/AGENTS.md"
-        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.codex/AGENTS.md (global instructions)"
-    fi
+    require_file "$SOURCE_DIR/AGENTS.md" || return 1
+    warn_overwrite "$TARGET_DIR/AGENTS.md"
+    cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/.codex/AGENTS.md (global instructions)"
     
     # Install SKILL.md to ~/.agents/skills/ (primary — per official Codex docs)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
-        warn_overwrite "$HOME/.agents/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md (primary)"
-        
-        # Also install to ~/.codex/skills/ (forward compatibility)
-        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.codex/skills/llmveritas/SKILL.md (forward compat)"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
+    warn_overwrite "$HOME/.agents/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md (primary)"
+
+    # Also install to ~/.codex/skills/ (forward compatibility)
+    mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.codex/skills/llmveritas/SKILL.md (forward compat)"
     
     echo "   ✨ Codex installation complete!"
 }
@@ -177,19 +174,17 @@ install_opencode() {
     mkdir -p "$TARGET_DIR" || return 1
     
     # Install AGENTS.md (global instructions)
-    if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
-        warn_overwrite "$TARGET_DIR/AGENTS.md"
-        cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.config/opencode/AGENTS.md (global instructions)"
-    fi
+    require_file "$SOURCE_DIR/AGENTS.md" || return 1
+    warn_overwrite "$TARGET_DIR/AGENTS.md"
+    cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/.config/opencode/AGENTS.md (global instructions)"
     
     # Install SKILL.md (skill version)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills" || return 1
-        warn_overwrite "$TARGET_DIR/skills/llmveritas.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas.md" || return 1
-        echo "   ✅ Installed: ~/.config/opencode/skills/llmveritas.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/skills" || return 1
+    warn_overwrite "$TARGET_DIR/skills/llmveritas.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas.md" || return 1
+    echo "   ✅ Installed: ~/.config/opencode/skills/llmveritas.md"
     
     echo "   ✨ OpenCode installation complete!"
 }
@@ -208,19 +203,17 @@ install_hermes() {
     mkdir -p "$TARGET_DIR" || return 1
     
     # Install SOUL.md (primary agent identity)
-    if [ -f "$SOURCE_DIR/SOUL.md" ]; then
-        warn_overwrite "$TARGET_DIR/SOUL.md"
-        cp "$SOURCE_DIR/SOUL.md" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.hermes/SOUL.md (primary identity)"
-    fi
+    require_file "$SOURCE_DIR/SOUL.md" || return 1
+    warn_overwrite "$TARGET_DIR/SOUL.md"
+    cp "$SOURCE_DIR/SOUL.md" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/.hermes/SOUL.md (primary identity)"
     
     # Install SKILL.md (skill version)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.hermes/skills/llmveritas/SKILL.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.hermes/skills/llmveritas/SKILL.md"
     
     echo "   ✨ Hermes installation complete!"
     echo "      SOUL.md sets primary identity, SKILL.md provides detailed protocols."
@@ -238,27 +231,17 @@ install_gemini_cli() {
     fi
     
     # Install GEMINI.md (global context)
-    if [ -f "$SOURCE_DIR/GEMINI.md" ]; then
-        warn_overwrite "$TARGET_DIR/GEMINI.md"
-        cp "$SOURCE_DIR/GEMINI.md" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/GEMINI.md (global context)"
-    fi
+    require_file "$SOURCE_DIR/GEMINI.md" || return 1
+    warn_overwrite "$TARGET_DIR/GEMINI.md"
+    cp "$SOURCE_DIR/GEMINI.md" "$TARGET_DIR/" || return 1
+    echo "   ✅ Installed: ~/GEMINI.md (global context)"
     
     # Install SKILL.md to .gemini/skills/
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.gemini/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/.gemini/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.gemini/skills/llmveritas/SKILL.md"
-    fi
-    
-    # Also install to .agents/skills/ (alternative)
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/.agents/skills/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/.agents/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/.gemini/skills/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/.gemini/skills/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.gemini/skills/llmveritas/SKILL.md"
     
     echo "   ✨ Gemini CLI installation complete!"
     echo "      Run: gemini skills list | grep llmveritas"
@@ -279,21 +262,11 @@ install_pi() {
     
     # Install SKILL.md to llmveritas directory
     # IMPORTANT: Directory name MUST match 'name' field in SKILL.md
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$TARGET_DIR/llmveritas" || return 1
-        warn_overwrite "$TARGET_DIR/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.pi/agent/skills/llmveritas/SKILL.md"
-    fi
-    
-    # Also install to .agents/skills/ alternative location
-    mkdir -p "$HOME/.agents/skills" || return 1
-    if [ -f "$SOURCE_DIR/SKILL.md" ]; then
-        mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
-        warn_overwrite "$HOME/.agents/skills/llmveritas/SKILL.md"
-        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
-    fi
+    require_file "$SOURCE_DIR/SKILL.md" || return 1
+    mkdir -p "$TARGET_DIR/llmveritas" || return 1
+    warn_overwrite "$TARGET_DIR/llmveritas/SKILL.md"
+    cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmveritas/" || return 1
+    echo "   ✅ Installed: ~/.pi/agent/skills/llmveritas/SKILL.md"
     
     echo "   ✨ Pi installation complete!"
 }

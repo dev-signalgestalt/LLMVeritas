@@ -73,7 +73,6 @@ From [Gemini CLI Skills Discovery](https://geminicli.com/docs/cli/skills/) [^1]:
 | **Project** | `.gemini/skills/` | Project-specific skills |
 | **Project** | `.agents/skills/` | Shared agent skills directory |
 | **User** | `~/.gemini/skills/` | Personal skills across projects |
-| **User** | `~/.agents/skills/` | Shared personal skills |
 
 ---
 
@@ -94,9 +93,6 @@ For manual installation, see `scripts/install.sh`.
 ```bash
 # User-scoped (available in all projects)
 ~/.gemini/skills/llmveritas/SKILL.md
-
-# Or shared agent directory
-~/.agents/skills/llmveritas/SKILL.md
 
 # Project-scoped (specific to project)
 ./.gemini/skills/llmveritas/SKILL.md

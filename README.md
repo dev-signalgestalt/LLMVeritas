@@ -103,7 +103,7 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 |-------|----------------|
 | **Claude Code** | `~/.claude/skills/llmveritas/SKILL.md` |
 | **Cursor** | `~/.cursor/skills/llmveritas/SKILL.md` |
-| **Codex** | `~/.codex/skills/llmveritas/SKILL.md` |
+| **Codex** | `~/.agents/skills/llmveritas/SKILL.md` + `~/.codex/skills/llmveritas/SKILL.md` |
 | **OpenCode** | `~/.config/opencode/skills/llmveritas.md` |
 | **Hermes** | `~/.hermes/skills/llmveritas/SKILL.md` |
 | **Gemini CLI** | `~/.gemini/skills/llmveritas/SKILL.md` |
@@ -129,7 +129,7 @@ Modular skills loaded when needed ([agentskills.io](https://agentskills.io/speci
 
 All 6 agents (except Pi) implement full dual-layer coverage. All 7 implement [agentskills.io](https://agentskills.io/specification) open standard for SKILL.md.
 
-**Cursor Agent mode note:** `.cursorrules` works in Chat/Composer mode but is silently ignored in Cursor's Agent mode. For Agent mode support, copy the generated `llmveritas.mdc` file to your project's `.cursor/rules/` directory.
+**Cursor Agent mode note:** `.cursorrules` works in Chat/Composer mode but is silently ignored in Cursor's Agent mode. For Agent mode support, copy the generated `llmveritas.mdc` file to your project's `.cursor/rules/` directory; the installer does not write project-scoped rules globally.
 
 ---
 
