@@ -8,6 +8,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 GENERATED_DIR="$PROJECT_ROOT/generated"
 
+warn_overwrite() {
+    local target="$1"
+    if [ -f "$target" ]; then
+        echo "   ⚠️  Overwriting existing: $target"
+    fi
+}
+
 echo "🔧 LLMVeritas Installer"
 echo "======================"
 echo
@@ -50,6 +57,7 @@ install_claude_code() {
     
     # Install CLAUDE.md (core global instructions)
     if [ -f "$SOURCE_DIR/CLAUDE.md" ]; then
+        warn_overwrite "$TARGET_DIR/CLAUDE.md"
         cp "$SOURCE_DIR/CLAUDE.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.claude/CLAUDE.md (global instructions)"
     fi
@@ -57,12 +65,17 @@ install_claude_code() {
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.claude/skills/llmveritas/SKILL.md"
     fi
     
     # Install commands
     if [ -d "$SOURCE_DIR/commands" ]; then
+        for cmd_file in "$SOURCE_DIR/commands/"*.md; do
+            [ -f "$cmd_file" ] || continue
+            warn_overwrite "$TARGET_DIR/commands/$(basename "$cmd_file")"
+        done
         cp "$SOURCE_DIR/commands/"*.md "$TARGET_DIR/commands/" 2>/dev/null || true
         echo "   ✅ Installed: ~/.claude/commands/"
     fi
@@ -84,20 +97,32 @@ install_cursor() {
     
     mkdir -p "$TARGET_DIR" || return 1
     
-    # Install .cursorrules (global rules)
+    # Install .cursorrules (legacy global rules — works in Chat/Composer, NOT in Agent mode)
     if [ -f "$SOURCE_DIR/.cursorrules" ]; then
+        warn_overwrite "$TARGET_DIR/.cursorrules"
         cp "$SOURCE_DIR/.cursorrules" "$TARGET_DIR/" || return 1
-        echo "   ✅ Installed: ~/.cursor/.cursorrules (global rules)"
+        echo "   ✅ Installed: ~/.cursor/.cursorrules (legacy global rules)"
     fi
     
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.cursor/skills/llmveritas/SKILL.md"
     fi
     
+    # Generate MDC rule file for Agent mode support
+    if [ -f "$SOURCE_DIR/llmveritas.mdc" ]; then
+        mkdir -p "$TARGET_DIR/rules" || return 1
+        warn_overwrite "$TARGET_DIR/rules/llmveritas.mdc"
+        cp "$SOURCE_DIR/llmveritas.mdc" "$TARGET_DIR/rules/" || return 1
+        echo "   ✅ Installed: ~/.cursor/rules/llmveritas.mdc (Agent mode rules)"
+    fi
+    
     echo "   ✨ Cursor installation complete!"
+    echo "      .cursorrules → Chat/Composer mode"
+    echo "      llmveritas.mdc → Project-level Agent mode (copy to your project's .cursor/rules/)"
     echo "      Restart Cursor to activate."
 }
 
@@ -116,15 +141,23 @@ install_codex() {
     
     # Install AGENTS.md (global instructions)
     if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
+        warn_overwrite "$TARGET_DIR/AGENTS.md"
         cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.codex/AGENTS.md (global instructions)"
     fi
     
-    # Install SKILL.md (skill version)
+    # Install SKILL.md to ~/.agents/skills/ (primary — per official Codex docs)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
+        mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
+        warn_overwrite "$HOME/.agents/skills/llmveritas/SKILL.md"
+        cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
+        echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md (primary)"
+        
+        # Also install to ~/.codex/skills/ (forward compatibility)
         mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
-        echo "   ✅ Installed: ~/.codex/skills/llmveritas/SKILL.md"
+        echo "   ✅ Installed: ~/.codex/skills/llmveritas/SKILL.md (forward compat)"
     fi
     
     echo "   ✨ Codex installation complete!"
@@ -145,6 +178,7 @@ install_opencode() {
     
     # Install AGENTS.md (global instructions)
     if [ -f "$SOURCE_DIR/AGENTS.md" ]; then
+        warn_overwrite "$TARGET_DIR/AGENTS.md"
         cp "$SOURCE_DIR/AGENTS.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.config/opencode/AGENTS.md (global instructions)"
     fi
@@ -152,6 +186,7 @@ install_opencode() {
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/skills" || return 1
+        warn_overwrite "$TARGET_DIR/skills/llmveritas.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas.md" || return 1
         echo "   ✅ Installed: ~/.config/opencode/skills/llmveritas.md"
     fi
@@ -174,6 +209,7 @@ install_hermes() {
     
     # Install SOUL.md (primary agent identity)
     if [ -f "$SOURCE_DIR/SOUL.md" ]; then
+        warn_overwrite "$TARGET_DIR/SOUL.md"
         cp "$SOURCE_DIR/SOUL.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/.hermes/SOUL.md (primary identity)"
     fi
@@ -181,6 +217,7 @@ install_hermes() {
     # Install SKILL.md (skill version)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.hermes/skills/llmveritas/SKILL.md"
     fi
@@ -202,6 +239,7 @@ install_gemini_cli() {
     
     # Install GEMINI.md (global context)
     if [ -f "$SOURCE_DIR/GEMINI.md" ]; then
+        warn_overwrite "$TARGET_DIR/GEMINI.md"
         cp "$SOURCE_DIR/GEMINI.md" "$TARGET_DIR/" || return 1
         echo "   ✅ Installed: ~/GEMINI.md (global context)"
     fi
@@ -209,6 +247,7 @@ install_gemini_cli() {
     # Install SKILL.md to .gemini/skills/
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/.gemini/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/.gemini/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.gemini/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.gemini/skills/llmveritas/SKILL.md"
     fi
@@ -216,6 +255,7 @@ install_gemini_cli() {
     # Also install to .agents/skills/ (alternative)
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/.agents/skills/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/.agents/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/.agents/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
     fi
@@ -241,6 +281,7 @@ install_pi() {
     # IMPORTANT: Directory name MUST match 'name' field in SKILL.md
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$TARGET_DIR/llmveritas" || return 1
+        warn_overwrite "$TARGET_DIR/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$TARGET_DIR/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.pi/agent/skills/llmveritas/SKILL.md"
     fi
@@ -249,6 +290,7 @@ install_pi() {
     mkdir -p "$HOME/.agents/skills" || return 1
     if [ -f "$SOURCE_DIR/SKILL.md" ]; then
         mkdir -p "$HOME/.agents/skills/llmveritas" || return 1
+        warn_overwrite "$HOME/.agents/skills/llmveritas/SKILL.md"
         cp "$SOURCE_DIR/SKILL.md" "$HOME/.agents/skills/llmveritas/" || return 1
         echo "   ✅ Installed: ~/.agents/skills/llmveritas/SKILL.md"
     fi

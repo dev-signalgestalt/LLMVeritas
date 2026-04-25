@@ -12,6 +12,7 @@ Requirements:
 """
 
 import os
+import re
 import sys
 import yaml
 import argparse
@@ -32,11 +33,10 @@ GENERATED_DIR = PROJECT_ROOT / "generated"
 # Supported agents
 AGENTS = ["claude-code", "cursor", "codex", "opencode", "hermes", "gemini-cli", "pi"]
 
-# Agent skill directories (installation targets)
 AGENT_DIRS = {
     "claude-code": "~/.claude/skills/llmveritas",
     "cursor": "~/.cursor/skills/llmveritas",
-    "codex": "~/.codex/skills/llmveritas",
+    "codex": ["~/.agents/skills/llmveritas", "~/.codex/skills/llmveritas"],
     "opencode": "~/.config/opencode/skills",
     "hermes": "~/.hermes/skills/llmveritas",
     "gemini-cli": "~/.gemini/skills/llmveritas",
@@ -140,6 +140,7 @@ def build_core_files(agent, spec, env, output_dir, verbose=False):
         ],
         "cursor": [
             ("cursorrules.j2", ".cursorrules"),
+            ("cursor-mdc.j2", "llmveritas.mdc"),
         ],
         "codex": [
             ("agents-md.j2", "AGENTS.md"),
@@ -185,6 +186,69 @@ def build_core_files(agent, spec, env, output_dir, verbose=False):
                 
         except Exception as e:
             print(f"   ⚠️  {output_name}: {e}")
+
+
+def validate_generated_file(file_path, agent, verbose=False):
+    errors = []
+    if not file_path.exists() or file_path.stat().st_size == 0:
+        errors.append(f"Empty or missing: {file_path.name}")
+        return errors
+
+    content = file_path.read_text()
+    basename = file_path.name
+
+    if basename in ("SKILL.md",) or (basename.endswith(".mdc") and "name:" in content[:200]):
+        fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        if fm_match:
+            try:
+                yaml.safe_load(fm_match.group(1))
+            except yaml.YAMLError as e:
+                errors.append(f"Invalid YAML frontmatter in {basename}: {e}")
+
+            fm_text = fm_match.group(1)
+            if "name:" not in fm_text:
+                errors.append(f"Missing 'name' in frontmatter: {basename}")
+            if "description:" not in fm_text:
+                errors.append(f"Missing 'description' in frontmatter: {basename}")
+        elif basename == "SKILL.md":
+            errors.append(f"Missing YAML frontmatter in {basename}")
+    elif basename.endswith(".mdc"):
+        fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        if fm_match:
+            try:
+                yaml.safe_load(fm_match.group(1))
+            except yaml.YAMLError as e:
+                errors.append(f"Invalid YAML frontmatter in {basename}: {e}")
+            fm_text = fm_match.group(1)
+            if "description:" not in fm_text:
+                errors.append(f"Missing 'description' in frontmatter: {basename}")
+    elif basename.endswith(".md") and "description:" in content[:200]:
+        fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+        if fm_match:
+            try:
+                yaml.safe_load(fm_match.group(1))
+            except yaml.YAMLError as e:
+                errors.append(f"Invalid YAML frontmatter in {basename}: {e}")
+
+    if verbose and not errors:
+        lines = len(content.splitlines())
+        print(f"      ✓ Valid ({lines} lines)")
+
+    return errors
+
+
+def validate_all_generated(verbose=False):
+    all_errors = []
+    for agent in AGENTS:
+        agent_dir = GENERATED_DIR / agent
+        if not agent_dir.exists():
+            all_errors.append(f"Missing directory: {agent}")
+            continue
+        for f in sorted(agent_dir.rglob("*")):
+            if f.is_file():
+                errs = validate_generated_file(f, agent, verbose)
+                all_errors.extend(errs)
+    return all_errors
 
 
 def build_claude_commands(spec, env, verbose=False):
@@ -261,7 +325,7 @@ def print_installation_guide():
     print()
     print("Core Instruction Files (Global):")
     print("  claude-code  → ~/.claude/CLAUDE.md + commands/")
-    print("  cursor       → ~/.cursor/.cursorrules")
+    print("  cursor       → ~/.cursor/.cursorrules + .cursor/rules/llmveritas.mdc")
     print("  codex        → ~/.codex/AGENTS.md")
     print("  opencode     → ~/.config/opencode/AGENTS.md")
     print("  hermes       → ~/.hermes/SOUL.md")
@@ -270,11 +334,15 @@ def print_installation_guide():
     print("Skill Files (On-Demand):")
     print("  claude-code  → ~/.claude/skills/llmveritas/SKILL.md")
     print("  cursor       → ~/.cursor/skills/llmveritas/SKILL.md")
-    print("  codex        → ~/.codex/skills/llmveritas/SKILL.md")
+    print("  codex        → ~/.agents/skills/llmveritas/SKILL.md + ~/.codex/skills/llmveritas/SKILL.md")
     print("  opencode     → ~/.config/opencode/skills/llmveritas.md")
     print("  hermes       → ~/.hermes/skills/llmveritas/SKILL.md")
     print("  gemini-cli   → ~/.gemini/skills/llmveritas/SKILL.md")
     print("  pi           → ~/.pi/agent/skills/llmveritas/SKILL.md")
+    print()
+    print("Cursor Agent Mode:")
+    print("  Copy generated/cursor/llmveritas.mdc to your project's .cursor/rules/ directory")
+    print("  (Global .cursorrules works in Chat/Composer but is silently ignored in Agent mode)")
 
 
 def main():
@@ -336,6 +404,16 @@ Examples:
     
     # Print installation guide
     print_installation_guide()
+
+    print()
+    print("🔍 Validating generated files...")
+    errors = validate_all_generated(args.verbose)
+    if errors:
+        print(f"   ⚠️  {len(errors)} validation issue(s):")
+        for e in errors:
+            print(f"      - {e}")
+    else:
+        print("   ✅ All generated files passed validation")
     
     print()
     print("Next steps:")
